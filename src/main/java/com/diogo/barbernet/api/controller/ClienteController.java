@@ -1,11 +1,13 @@
 package com.diogo.barbernet.api.controller;
 
 import com.diogo.barbernet.api.domain.cliente.Cliente;
+import com.diogo.barbernet.api.domain.cliente.DadosAtulizacaoCliente;
 import com.diogo.barbernet.api.domain.cliente.DadosCadastroCliente;
 import com.diogo.barbernet.api.domain.cliente.DadosListagemCliente;
 import com.diogo.barbernet.api.services.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,12 @@ public class ClienteController {
         List<Cliente> list = service.findAll();
         List<DadosListagemCliente> listCliente = list.stream().map(DadosListagemCliente::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(listCliente);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<DadosAtulizacaoCliente> atualizarCliente (@PathVariable Long id, @RequestBody @Valid DadosAtulizacaoCliente dados){
+        Cliente cliente = service.atualizarCliente(id, dados);
+        return ResponseEntity.ok().body(new DadosAtulizacaoCliente(cliente));
     }
 
 }
