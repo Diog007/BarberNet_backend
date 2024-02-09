@@ -20,4 +20,8 @@ public class Cliente {
     private String nome;
     private String telefone;
 
+    public Cliente(DadosCadastroCliente dados) {
+        this.nome = dados.nome();
+        this.telefone = dados.telefone();
+    }
 }
