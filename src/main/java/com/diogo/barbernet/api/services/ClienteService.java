@@ -39,4 +39,8 @@ public class ClienteService {
     }
 
 
+    public void deletar(Long id) {
+        Cliente cliente = findById(id);
+        repository.deleteById(id);
+    }
 }

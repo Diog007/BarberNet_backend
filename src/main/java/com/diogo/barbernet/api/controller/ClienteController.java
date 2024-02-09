@@ -7,13 +7,11 @@ import com.diogo.barbernet.api.domain.cliente.DadosListagemCliente;
 import com.diogo.barbernet.api.services.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.awt.print.Pageable;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,6 +41,12 @@ public class ClienteController {
     public ResponseEntity<DadosAtulizacaoCliente> atualizarCliente (@PathVariable Long id, @RequestBody @Valid DadosAtulizacaoCliente dados){
         Cliente cliente = service.atualizarCliente(id, dados);
         return ResponseEntity.ok().body(new DadosAtulizacaoCliente(cliente));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity excluirCliente(@PathVariable Long id){
+        service.deletar(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Cliente " + id + "deletado com sucesso!");
     }
 
 }
