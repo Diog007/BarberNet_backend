@@ -6,6 +6,8 @@ import com.diogo.barbernet.api.domain.cliente.DadosCadastroCliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClienteService {
 
@@ -17,4 +19,7 @@ public class ClienteService {
         return repository.save(newDados);
     }
 
+    public List<Cliente> findAll() {
+        return repository.findAll();
+    }
 }
