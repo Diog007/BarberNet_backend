@@ -1,4 +1,4 @@
-package com.diogo.barbernet.api.domain;
+package com.diogo.barbernet.api.domain.cabeleireiro;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,12 +12,12 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity
-public class Cliente {
+public class Cabeleireiro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
-    private String telefone;
 
 }
