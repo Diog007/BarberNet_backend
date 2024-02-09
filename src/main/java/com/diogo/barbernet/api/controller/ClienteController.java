@@ -46,7 +46,13 @@ public class ClienteController {
     @DeleteMapping("/{id}")
     public ResponseEntity excluirCliente(@PathVariable Long id){
         service.deletar(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Cliente " + id + "deletado com sucesso!");
+        return ResponseEntity.status(HttpStatus.OK).body("Cliente " + id + " deletado com sucesso!");
+    }
+
+    @GetMapping(value = "{id}")
+    public ResponseEntity<DadosListagemCliente> findById(@PathVariable Long id){
+        var cliente = service.findById(id);
+        return ResponseEntity.ok().body(new DadosListagemCliente(cliente));
     }
 
 }

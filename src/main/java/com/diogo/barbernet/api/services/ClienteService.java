@@ -20,16 +20,13 @@ public class ClienteService {
         Optional<Cliente> optionalCliente = repository.findById(id);
         return optionalCliente.orElse(null);
     }
-
     public Cliente cadastrarCliente(DadosCadastroCliente dados){
         Cliente newDados = new Cliente(dados);
         return repository.save(newDados);
     }
-
     public List<Cliente> findAll() {
         return repository.findAll();
     }
-
     public Cliente atualizarCliente(Long id, DadosAtulizacaoCliente dados) {
         Cliente cliente = findById(id);
         cliente.setNome(dados.nome());
@@ -37,8 +34,6 @@ public class ClienteService {
 
         return repository.save(cliente);
     }
-
-
     public void deletar(Long id) {
         Cliente cliente = findById(id);
         repository.deleteById(id);
