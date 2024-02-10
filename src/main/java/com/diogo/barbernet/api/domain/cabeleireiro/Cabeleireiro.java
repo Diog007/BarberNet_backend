@@ -20,4 +20,7 @@ public class Cabeleireiro {
 
     private String nome;
 
+    public Cabeleireiro(DadosCadastroCabeleireiro dados) {
+        this.nome = dados.nome();
+    }
 }
