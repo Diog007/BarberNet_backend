@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CabeleireiroService {
@@ -34,5 +35,10 @@ public class CabeleireiroService {
     public void deletar(Long id) {
         Cabeleireiro cabeleireiro = repository.getReferenceById(id);
         repository.deleteById(id);
+    }
+
+    public Cabeleireiro findById(Long id) {
+        var cabeleireiro = repository.findById(id);
+        return cabeleireiro.orElse(null);
     }
 }

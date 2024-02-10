@@ -52,4 +52,9 @@ public class CabeleireiroController {
         return ResponseEntity.status(HttpStatus.OK).body("Cabeleireiro " + id + " deletado com sucesso!");
     }
 
+    @GetMapping(value = "{id}")
+    public ResponseEntity<DadosListagemCabeleireiro> findById(@PathVariable Long id){
+        var cabeleireiro = service.findById(id);
+        return ResponseEntity.ok().body(new DadosListagemCabeleireiro(cabeleireiro));
+    }
 }
