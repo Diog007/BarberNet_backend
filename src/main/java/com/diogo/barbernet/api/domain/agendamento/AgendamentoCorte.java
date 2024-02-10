@@ -23,4 +23,10 @@ public class AgendamentoCorte {
         agendamentoRepository.save(agendamento);
         return new DadosDetalhamentoAgendamento(agendamento);
     }
+
+    public Object cancelarAgendamento (DadosCancelamentoCorte dados) {
+        Agendamento agenda = agendamentoRepository.findById(dados.idConsulta()).orElse(null);
+        agendamentoRepository.deleteById(agenda.getId());
+        return agenda;
+    }
 }
