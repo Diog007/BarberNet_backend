@@ -30,4 +30,9 @@ public class CabeleireiroService {
         cabeleireiro.setNome(dados.nome());
         return cabeleireiro;
     }
+
+    public void deletar(Long id) {
+        Cabeleireiro cabeleireiro = repository.getReferenceById(id);
+        repository.deleteById(id);
+    }
 }

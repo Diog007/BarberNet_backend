@@ -11,6 +11,7 @@ import com.diogo.barbernet.api.domain.cliente.DadosListagemCliente;
 import com.diogo.barbernet.api.services.CabeleireiroService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,6 +44,12 @@ public class CabeleireiroController {
     public ResponseEntity<DadosAtulizacaoCabeleireiro> atualizarCabeleireiro (@PathVariable Long id, @RequestBody @Valid DadosAtulizacaoCabeleireiro dados){
         Cabeleireiro cabeleireiro = service.atualizarCabeleireiro(id, dados);
         return ResponseEntity.ok().body(new DadosAtulizacaoCabeleireiro(cabeleireiro));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity excluirCabeleireiro(@PathVariable Long id){
+        service.deletar(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Cabeleireiro " + id + " deletado com sucesso!");
     }
 
 }
