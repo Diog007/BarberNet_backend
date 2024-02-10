@@ -1,8 +1,8 @@
 package com.diogo.barbernet.api.domain.cabeleireiro;
 
-public record DadosListagemCabeleireiro(String nome) {
+public record DadosListagemCabeleireiro(Long id, String nome) {
 
     public DadosListagemCabeleireiro (Cabeleireiro cabeleireiro){
-        this(cabeleireiro.getNome());
+        this(cabeleireiro.getId(), cabeleireiro.getNome());
     }
 }
