@@ -5,6 +5,8 @@ import com.diogo.barbernet.api.domain.cliente.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AgendamentoCorte {
     @Autowired
