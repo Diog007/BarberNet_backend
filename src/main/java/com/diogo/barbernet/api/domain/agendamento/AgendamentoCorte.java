@@ -35,9 +35,8 @@ public class AgendamentoCorte {
     }
 
 
-    public Object cancelarAgendamento (DadosCancelamentoCorte dados) {
-        Agendamento agenda = agendamentoRepository.findById(dados.idConsulta()).orElse(null);
+    public void cancelarAgendamento (Long id) {
+        Agendamento agenda = agendamentoRepository.findById(id).orElse(null);
         agendamentoRepository.deleteById(agenda.getId());
-        return agenda;
     }
 }

@@ -29,10 +29,10 @@ public class AgendamentoController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(agendar.id()).toUri();
         return ResponseEntity.created(uri).build();
     }
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity cancelarCorte(@RequestBody @Valid DadosCancelamentoCorte dados){
-        agendamentoCorte.cancelarAgendamento(dados);
+    public ResponseEntity cancelarCorte(@PathVariable @Valid Long id){
+        agendamentoCorte.cancelarAgendamento(id);
         return ResponseEntity.noContent().build();
     }
 
