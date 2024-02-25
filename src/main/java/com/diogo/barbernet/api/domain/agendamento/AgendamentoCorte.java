@@ -1,11 +1,14 @@
 package com.diogo.barbernet.api.domain.agendamento;
 
+import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
 import com.diogo.barbernet.api.domain.cabeleireiro.CabeleireiroRepository;
+import com.diogo.barbernet.api.domain.cliente.Cliente;
 import com.diogo.barbernet.api.domain.cliente.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AgendamentoCorte {
@@ -17,14 +20,20 @@ public class AgendamentoCorte {
     private AgendamentoRepository agendamentoRepository;
 
 
-    public Object agendar(DadosAgendamentoCorte dados) {
-        var cliente = clienteRepository.getReferenceById(dados.idCliente());
-        var cabeleireiro = cabeleireiroRepository.getReferenceById(dados.idCabeleireiro());
+    public DadosDetalhamentoAgendamento agendar(DadosAgendamentoCorte dados) {
+        Optional<Cliente> cliente = clienteRepository.findById(dados.idCliente());
+        Optional<Cabeleireiro> cabeleireiro = cabeleireiroRepository.findById(dados.idCabeleireiro());
+        if (cliente.isPresent() && cabeleireiro.isPresent()) {
+            Cliente clientes = cliente.get();
+            Cabeleireiro cabeleireiros = cabeleireiro.get();
 
-        var agendamento = new Agendamento(null, cliente, cabeleireiro, dados.data());
-        agendamentoRepository.save(agendamento);
-        return new DadosDetalhamentoAgendamento(agendamento);
+            Agendamento agendamento = new Agendamento(null, clientes, cabeleireiros, dados.data());
+            agendamentoRepository.save(agendamento);
+            return new DadosDetalhamentoAgendamento(agendamento);
+        }
+        return null;
     }
+
 
     public Object cancelarAgendamento (DadosCancelamentoCorte dados) {
         Agendamento agenda = agendamentoRepository.findById(dados.idConsulta()).orElse(null);

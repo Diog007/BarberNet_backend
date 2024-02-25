@@ -7,7 +7,9 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,11 +24,11 @@ public class AgendamentoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity agendarCorte(@RequestBody @Valid DadosAgendamentoCorte dados){
+    public ResponseEntity<DadosAgendamentoCorte> agendarCorte(@RequestBody @Valid DadosAgendamentoCorte dados){
         var agendar = agendamentoCorte.agendar(dados);
-        return ResponseEntity.ok(agendar);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(agendar.id()).toUri();
+        return ResponseEntity.created(uri).build();
     }
-
     @DeleteMapping
     @Transactional
     public ResponseEntity cancelarCorte(@RequestBody @Valid DadosCancelamentoCorte dados){
