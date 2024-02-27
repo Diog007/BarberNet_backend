@@ -27,5 +27,6 @@ public class Agendamento {
     @JoinColumn(name = "cabeleireiro_id")
     private Cabeleireiro cabeleireiro;
 
+
     private LocalDateTime dataHora;
 }

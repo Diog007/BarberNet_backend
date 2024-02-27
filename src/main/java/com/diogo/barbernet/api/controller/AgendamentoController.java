@@ -1,15 +1,16 @@
 package com.diogo.barbernet.api.controller;
 
-import com.diogo.barbernet.api.domain.agendamento.*;
+import com.diogo.barbernet.api.domain.agendamento.Agendamento;
+import com.diogo.barbernet.api.domain.agendamento.AgendamentoCorte;
+import com.diogo.barbernet.api.domain.agendamento.DadosAgendamentoCorte;
+import com.diogo.barbernet.api.domain.agendamento.DadosDetalhamentoAgendamento;
 import com.diogo.barbernet.api.services.AgendamentoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,11 +25,11 @@ public class AgendamentoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DadosAgendamentoCorte> agendarCorte(@RequestBody @Valid DadosAgendamentoCorte dados){
+    public ResponseEntity agendarCorte(@RequestBody @Valid DadosAgendamentoCorte dados){
         var agendar = agendamentoCorte.agendar(dados);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(agendar.id()).toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.ok(agendar);
     }
+
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity cancelarCorte(@PathVariable @Valid Long id){

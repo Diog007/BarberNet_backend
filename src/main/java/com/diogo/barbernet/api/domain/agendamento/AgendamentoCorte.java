@@ -1,14 +1,13 @@
 package com.diogo.barbernet.api.domain.agendamento;
 
-import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
+import com.diogo.barbernet.api.domain.ValidacaoException;
+import com.diogo.barbernet.api.domain.agendamento.validacoes.ValidadorAgendamentoDeCorte;
 import com.diogo.barbernet.api.domain.cabeleireiro.CabeleireiroRepository;
-import com.diogo.barbernet.api.domain.cliente.Cliente;
 import com.diogo.barbernet.api.domain.cliente.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AgendamentoCorte {
@@ -19,19 +18,25 @@ public class AgendamentoCorte {
     @Autowired
     private AgendamentoRepository agendamentoRepository;
 
+    @Autowired
+    private List<ValidadorAgendamentoDeCorte> validadores;
 
     public DadosDetalhamentoAgendamento agendar(DadosAgendamentoCorte dados) {
-        Optional<Cliente> cliente = clienteRepository.findById(dados.idCliente());
-        Optional<Cabeleireiro> cabeleireiro = cabeleireiroRepository.findById(dados.idCabeleireiro());
-        if (cliente.isPresent() && cabeleireiro.isPresent()) {
-            Cliente clientes = cliente.get();
-            Cabeleireiro cabeleireiros = cabeleireiro.get();
-
-            Agendamento agendamento = new Agendamento(null, clientes, cabeleireiros, dados.data());
-            agendamentoRepository.save(agendamento);
-            return new DadosDetalhamentoAgendamento(agendamento);
+        if (!clienteRepository.existsById(dados.idCliente())) {
+            throw new ValidacaoException("Id do paciente informado nao existe!");
         }
-        return null;
+        if (dados.idCabeleireiro() != null && !cabeleireiroRepository.existsById(dados.idCabeleireiro())) {
+            throw new ValidacaoException("Id do medico informado nao existe!");
+        }
+        validadores.forEach(v -> v.validar(dados));
+
+        var cliente = clienteRepository.getReferenceById(dados.idCliente());
+        var cabeleireiros = cabeleireiroRepository.getReferenceById(dados.idCabeleireiro());
+
+        var agendamento = new Agendamento(null, cliente, cabeleireiros, dados.data());
+        agendamentoRepository.save(agendamento);
+
+        return new DadosDetalhamentoAgendamento(agendamento);
     }
 
 
