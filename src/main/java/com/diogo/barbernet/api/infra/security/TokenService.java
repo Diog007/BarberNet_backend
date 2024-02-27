@@ -33,7 +33,7 @@ public class TokenService {
 
     public String validarToken(String tokenJWT){
         try{
-            var algoritmo = Algorithm.HMAC256(secret);
+            var algoritmo = Algorithm.HMAC256("secret");
             return JWT.require(algoritmo)
                     .withIssuer("API barbernet")
                     .build()
