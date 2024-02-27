@@ -1,9 +1,6 @@
 package com.diogo.barbernet.api.controller;
 
-import com.diogo.barbernet.api.domain.cliente.Cliente;
-import com.diogo.barbernet.api.domain.cliente.DadosAtulizacaoCliente;
-import com.diogo.barbernet.api.domain.cliente.DadosCadastroCliente;
-import com.diogo.barbernet.api.domain.cliente.DadosListagemCliente;
+import com.diogo.barbernet.api.domain.cliente.*;
 import com.diogo.barbernet.api.services.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +47,9 @@ public class ClienteController {
     }
 
     @GetMapping(value = "{id}")
-    public ResponseEntity<DadosListagemCliente> findById(@PathVariable Long id){
+    public ResponseEntity<DadosDetalhamentoCliente> findById(@PathVariable Long id){
         var cliente = service.findById(id);
-        return ResponseEntity.ok().body(new DadosListagemCliente(cliente));
+        return ResponseEntity.ok().body(new DadosDetalhamentoCliente(cliente));
     }
 
 }

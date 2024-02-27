@@ -41,14 +41,14 @@ public class DataInitializer implements CommandLineRunner {
                 usuarioRepository.save(usuario);
             }
 
-        Cliente cliente1 = new Cliente(11L, "Diogo", "119591557");
-        Cliente cliente2 = new Cliente(12L, "Malcon", "1195843957");
-        Cliente cliente3 = new Cliente(13L, "Danilo", "1195963145957");
-        clienteRepository.saveAll(List.of(cliente1, cliente1, cliente1));
+        Cliente cliente1 = new Cliente(11L, "Diogo", "119591557", "diogo@gmial.com", "1211515631");
+        Cliente cliente2 = new Cliente(12L, "Malcon", "1195843957", "malcon@gmail.com", "263515611521");
+        Cliente cliente3 = new Cliente(13L, "Danilo", "1195963145957", "danilo@gmail.com", "15212611121");
+        clienteRepository.saveAll(List.of(cliente1, cliente2, cliente3));
 
-        Cabeleireiro cabeleireiro1 = new Cabeleireiro(11L, "Robert");
-        Cabeleireiro cabeleireiro2 = new Cabeleireiro(12L, "Renato");
-        Cabeleireiro cabeleireiro3 = new Cabeleireiro(13L, "Omar");
+        Cabeleireiro cabeleireiro1 = new Cabeleireiro(11L, "Robert","118533838", "robert@gmial.com", "73373773");
+        Cabeleireiro cabeleireiro2 = new Cabeleireiro(12L, "Renato","11683853", "renato@gmial.com", "7838378373");
+        Cabeleireiro cabeleireiro3 = new Cabeleireiro(13L, "Omar","113853883", "omar@gmial.com", "45663753");
         cabeleireiroRepository.saveAll(List.of(cabeleireiro1, cabeleireiro2, cabeleireiro3));
 
         LocalDateTime dataHora1 = LocalDateTime.parse("2024-03-01T10:15:30");

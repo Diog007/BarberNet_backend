@@ -1,9 +1,6 @@
 package com.diogo.barbernet.api.controller;
 
-import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
-import com.diogo.barbernet.api.domain.cabeleireiro.DadosAtulizacaoCabeleireiro;
-import com.diogo.barbernet.api.domain.cabeleireiro.DadosCadastroCabeleireiro;
-import com.diogo.barbernet.api.domain.cabeleireiro.DadosListagemCabeleireiro;
+import com.diogo.barbernet.api.domain.cabeleireiro.*;
 import com.diogo.barbernet.api.domain.cliente.Cliente;
 import com.diogo.barbernet.api.domain.cliente.DadosAtulizacaoCliente;
 import com.diogo.barbernet.api.domain.cliente.DadosCadastroCliente;
@@ -53,8 +50,8 @@ public class CabeleireiroController {
     }
 
     @GetMapping(value = "{id}")
-    public ResponseEntity<DadosListagemCabeleireiro> findById(@PathVariable Long id){
+    public ResponseEntity<DadosDetalhamentoCabeleireiro> findById(@PathVariable Long id){
         var cabeleireiro = service.findById(id);
-        return ResponseEntity.ok().body(new DadosListagemCabeleireiro(cabeleireiro));
+        return ResponseEntity.ok().body(new DadosDetalhamentoCabeleireiro(cabeleireiro));
     }
 }

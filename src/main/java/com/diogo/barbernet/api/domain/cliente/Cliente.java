@@ -19,6 +19,8 @@ public class Cliente {
     private Long id;
     private String nome;
     private String telefone;
+    private String email;
+    private String cpf;
 
     public Cliente(DadosCadastroCliente dados) {
         this.nome = dados.nome();

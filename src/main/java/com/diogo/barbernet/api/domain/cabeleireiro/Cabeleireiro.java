@@ -17,8 +17,10 @@ public class Cabeleireiro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nome;
+    private String telefone;
+    private String email;
+    private String cpf;
 
     public Cabeleireiro(DadosCadastroCabeleireiro dados) {
         this.nome = dados.nome();
