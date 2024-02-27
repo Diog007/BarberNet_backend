@@ -31,6 +31,8 @@ public class ClienteService {
         Cliente cliente = findById(id);
         cliente.setNome(dados.nome());
         cliente.setTelefone(dados.telefone());
+        cliente.setEmail(dados.email());
+        cliente.setCpf(dados.cpf());
 
         return repository.save(cliente);
     }

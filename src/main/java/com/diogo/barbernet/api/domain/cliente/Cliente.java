@@ -25,5 +25,7 @@ public class Cliente {
     public Cliente(DadosCadastroCliente dados) {
         this.nome = dados.nome();
         this.telefone = dados.telefone();
+        this.email = dados.email();
+        this.cpf = dados.cpf();
     }
 }

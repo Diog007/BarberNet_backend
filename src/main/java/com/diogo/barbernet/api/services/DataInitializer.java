@@ -26,30 +26,46 @@ public class DataInitializer implements CommandLineRunner {
     private AgendamentoRepository agendamentoRepository;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UsuarioRepository usuarioRepository;
 
     @Override
     public void run(String... args) throws Exception {
-            String login = "test@test.com";
-            String senha = "123";
-            String senhaCriptografada = passwordEncoder.encode(senha);
-            Usuario usuario = new Usuario(null, login, senhaCriptografada);
-            if(!usuarioRepository.existsByLogin(login)) {
-                usuarioRepository.save(usuario);
-            }
+        String login = "test@test.com";
+        String senha = "123";
+        String senhaCriptografada = passwordEncoder.encode(senha);
+        Usuario usuario = new Usuario(null, login, senhaCriptografada);
+        if (!usuarioRepository.existsByLogin(login)) {
+            usuarioRepository.save(usuario);
+        }
 
         Cliente cliente1 = new Cliente(11L, "Diogo", "119591557", "diogo@gmial.com", "1211515631");
         Cliente cliente2 = new Cliente(12L, "Malcon", "1195843957", "malcon@gmail.com", "263515611521");
         Cliente cliente3 = new Cliente(13L, "Danilo", "1195963145957", "danilo@gmail.com", "15212611121");
-        clienteRepository.saveAll(List.of(cliente1, cliente2, cliente3));
+        if (!clienteRepository.existsByCpf(cliente1.getCpf())) {
+            clienteRepository.save(cliente1);
+        }
+        if (!clienteRepository.existsByCpf(cliente2.getCpf())) {
+            clienteRepository.save(cliente2);
+        }
+        if (!clienteRepository.existsByCpf(cliente3.getCpf())) {
+            clienteRepository.save(cliente3);
+        }
 
-        Cabeleireiro cabeleireiro1 = new Cabeleireiro(11L, "Robert","118533838", "robert@gmial.com", "73373773");
-        Cabeleireiro cabeleireiro2 = new Cabeleireiro(12L, "Renato","11683853", "renato@gmial.com", "7838378373");
-        Cabeleireiro cabeleireiro3 = new Cabeleireiro(13L, "Omar","113853883", "omar@gmial.com", "45663753");
-        cabeleireiroRepository.saveAll(List.of(cabeleireiro1, cabeleireiro2, cabeleireiro3));
+        Cabeleireiro cabeleireiro1 = new Cabeleireiro(11L, "Robert", "118533838", "robert@gmial.com", "73373773");
+        Cabeleireiro cabeleireiro2 = new Cabeleireiro(12L, "Renato", "11683853", "renato@gmial.com", "7838378373");
+        Cabeleireiro cabeleireiro3 = new Cabeleireiro(13L, "Omar", "113853883", "omar@gmial.com", "45663753");
+        if (!cabeleireiroRepository.existsByCpf(cabeleireiro1.getCpf())) {
+            cabeleireiroRepository.save(cabeleireiro1);
+        }
+        if (!cabeleireiroRepository.existsByCpf(cabeleireiro2.getCpf())) {
+            cabeleireiroRepository.save(cabeleireiro2);
+        }
+        if (!cabeleireiroRepository.existsByCpf(cabeleireiro3.getCpf())) {
+            cabeleireiroRepository.save(cabeleireiro3);
+        }
 
         LocalDateTime dataHora1 = LocalDateTime.parse("2024-03-01T10:15:30");
         LocalDateTime dataHora2 = LocalDateTime.parse("2024-03-02T10:15:30");
@@ -58,14 +74,10 @@ public class DataInitializer implements CommandLineRunner {
         Agendamento agendamento1 = new Agendamento(null, cliente1, cabeleireiro1, dataHora1);
         Agendamento agendamento2 = new Agendamento(null, cliente2, cabeleireiro2, dataHora2);
         Agendamento agendamento3 = new Agendamento(null, cliente3, cabeleireiro3, dataHora3);
-        if (!agendamentoRepository.existsByClienteAndCabeleireiroAndDataHora(agendamento1.getCliente(), agendamento1.getCabeleireiro(), agendamento1.getDataHora())) {
-            agendamentoRepository.save(agendamento1);
-        }
-        if (!agendamentoRepository.existsByClienteAndCabeleireiroAndDataHora(agendamento2.getCliente(), agendamento2.getCabeleireiro(), agendamento2.getDataHora())) {
-            agendamentoRepository.save(agendamento2);
-        }
-        if (!agendamentoRepository.existsByClienteAndCabeleireiroAndDataHora(agendamento3.getCliente(), agendamento3.getCabeleireiro(), agendamento3.getDataHora())) {
-            agendamentoRepository.save(agendamento3);
-        }
+        // Certifique-se de tratar possíveis exceções relacionadas à data e hora aqui
+        agendamentoRepository.save(agendamento1);
+        agendamentoRepository.save(agendamento2);
+        agendamentoRepository.save(agendamento3);
     }
 }
+

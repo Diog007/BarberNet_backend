@@ -24,5 +24,8 @@ public class Cabeleireiro {
 
     public Cabeleireiro(DadosCadastroCabeleireiro dados) {
         this.nome = dados.nome();
+        this.telefone = dados.telefone();
+        this.email = dados.email();
+        this.cpf = dados.cpf();
     }
 }
