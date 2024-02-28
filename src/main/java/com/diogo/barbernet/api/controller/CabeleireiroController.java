@@ -6,6 +6,7 @@ import com.diogo.barbernet.api.domain.cliente.DadosAtulizacaoCliente;
 import com.diogo.barbernet.api.domain.cliente.DadosCadastroCliente;
 import com.diogo.barbernet.api.domain.cliente.DadosListagemCliente;
 import com.diogo.barbernet.api.services.CabeleireiroService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("cabeleireiros")
+@SecurityRequirement(name = "bearer-key")
 public class CabeleireiroController {
     @Autowired
     private CabeleireiroService service;

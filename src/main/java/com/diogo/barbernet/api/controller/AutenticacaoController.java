@@ -4,6 +4,7 @@ import com.diogo.barbernet.api.domain.usuario.DadosAutenticacao;
 import com.diogo.barbernet.api.domain.usuario.Usuario;
 import com.diogo.barbernet.api.infra.security.DadosTokenJWT;
 import com.diogo.barbernet.api.infra.security.TokenService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
