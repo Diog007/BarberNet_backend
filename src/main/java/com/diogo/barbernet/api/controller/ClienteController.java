@@ -36,9 +36,9 @@ public class ClienteController {
         return ResponseEntity.ok().body(listCliente);
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<DadosAtulizacaoCliente> atualizarCliente (@PathVariable Long id, @RequestBody @Valid DadosAtulizacaoCliente dados){
-        Cliente cliente = service.atualizarCliente(id, dados);
+    @PutMapping
+    public ResponseEntity<DadosAtulizacaoCliente> atualizarCliente ( @RequestBody @Valid DadosAtulizacaoCliente dados){
+        Cliente cliente = service.atualizarCliente(dados);
         return ResponseEntity.ok().body(new DadosAtulizacaoCliente(cliente));
     }
 

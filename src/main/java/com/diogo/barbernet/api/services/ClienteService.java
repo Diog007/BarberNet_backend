@@ -27,8 +27,8 @@ public class ClienteService {
     public List<Cliente> findAll() {
         return repository.findAll();
     }
-    public Cliente atualizarCliente(Long id, DadosAtulizacaoCliente dados) {
-        Cliente cliente = findById(id);
+    public Cliente atualizarCliente(DadosAtulizacaoCliente dados) {
+        Cliente cliente = findById(dados.id());
         cliente.setNome(dados.nome());
         cliente.setTelefone(dados.telefone());
         cliente.setEmail(dados.email());

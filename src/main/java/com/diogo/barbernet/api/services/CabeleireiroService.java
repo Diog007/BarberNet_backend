@@ -26,8 +26,8 @@ public class CabeleireiroService {
         return repository.findAll();
     }
 
-    public Cabeleireiro atualizarCabeleireiro(Long id, DadosAtulizacaoCabeleireiro dados) {
-        Cabeleireiro cabeleireiro = findById(id);
+    public Cabeleireiro atualizarCabeleireiro( DadosAtulizacaoCabeleireiro dados) {
+        Cabeleireiro cabeleireiro = findById(dados.id());
         cabeleireiro.setNome(dados.nome());
         cabeleireiro.setTelefone(dados.telefone());
         cabeleireiro.setEmail(dados.email());
