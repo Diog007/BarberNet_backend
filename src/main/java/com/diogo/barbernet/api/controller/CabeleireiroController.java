@@ -1,10 +1,6 @@
 package com.diogo.barbernet.api.controller;
 
 import com.diogo.barbernet.api.domain.cabeleireiro.*;
-import com.diogo.barbernet.api.domain.cliente.Cliente;
-import com.diogo.barbernet.api.domain.cliente.DadosAtulizacaoCliente;
-import com.diogo.barbernet.api.domain.cliente.DadosCadastroCliente;
-import com.diogo.barbernet.api.domain.cliente.DadosListagemCliente;
 import com.diogo.barbernet.api.services.CabeleireiroService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;

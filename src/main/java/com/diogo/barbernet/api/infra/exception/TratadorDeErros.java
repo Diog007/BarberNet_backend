@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.naming.AuthenticationException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestControllerAdvice
@@ -36,6 +37,13 @@ public class TratadorDeErros {
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity tratarErroAuthentication() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação");
+    }
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity tratarErroAuthentication(ValidacaoException ex) {
+        ResponserError responser = new ResponserError(ex.getMessage(),
+                HttpStatus.BAD_REQUEST,
+                LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responser);
     }
 
     @ExceptionHandler(AccessDeniedException.class)
