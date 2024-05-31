@@ -1,5 +1,6 @@
 package com.diogo.barbernet.api.services;
 
+import com.diogo.barbernet.api.domain.ValidacaoException;
 import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
 import com.diogo.barbernet.api.domain.cabeleireiro.CabeleireiroRepository;
 import com.diogo.barbernet.api.domain.cabeleireiro.DadosAtulizacaoCabeleireiro;
@@ -18,6 +19,7 @@ public class CabeleireiroService {
     private CabeleireiroRepository repository;
 
     public Cabeleireiro cadastrarCabeleireiro(DadosCadastroCabeleireiro dados) {
+        validaPorCpfEEmail(dados);
         Cabeleireiro cabeleireiro = new Cabeleireiro(dados);
         return repository.save(cabeleireiro);
     }
@@ -43,5 +45,16 @@ public class CabeleireiroService {
     public Cabeleireiro findById(Long id) {
         var cabeleireiro = repository.findById(id);
         return cabeleireiro.orElse(null);
+    }
+
+    private void validaPorCpfEEmail(DadosCadastroCabeleireiro cabeleireiro) {
+        Optional<Cabeleireiro> obj = repository.findByCpf(cabeleireiro.cpf());
+        if(obj.isPresent()){
+            throw new ValidacaoException("CPF já cadastrado no sistema!");
+        }
+        obj = repository.findByEmail(cabeleireiro.email());
+        if(obj.isPresent()) {
+            throw new ValidacaoException("E-mail já cadastrado no sistema!");
+        }
     }
 }

@@ -29,6 +29,7 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Override
+
     public void run(String... args) throws Exception {
         String login = "test@test.com";
         String senha = "123";
@@ -38,9 +39,9 @@ public class DataInitializer implements CommandLineRunner {
             usuarioRepository.save(usuario);
         }
 
-        Cliente cliente1 = new Cliente(1L, "Diogo", "119591557", "diogo@gmial.com", "1211515631");
-        Cliente cliente2 = new Cliente(2L, "Malcon", "1195843957", "malcon@gmail.com", "263515611521");
-        Cliente cliente3 = new Cliente(3L, "Danilo", "1195963145957", "danilo@gmail.com", "15212611121");
+        Cliente cliente1 = new Cliente(1L, "Diogo", "11-95971-5957", "diogo@gmail.com", "1211515631");
+        Cliente cliente2 = new Cliente(2L, "Malcon", "11-95843-9571", "malcon@gmail.com", "263515611521");
+        Cliente cliente3 = new Cliente(3L, "Danilo", "11-95964-5157", "danilo@gmail.com", "15212611121");
         if (!clienteRepository.existsByCpf(cliente1.getCpf())) {
             clienteRepository.save(cliente1);
         }
@@ -51,9 +52,9 @@ public class DataInitializer implements CommandLineRunner {
             clienteRepository.save(cliente3);
         }
 
-        Cabeleireiro cabeleireiro1 = new Cabeleireiro(1L, "Robert", "118533838", "robert@gmial.com", "73373773");
-        Cabeleireiro cabeleireiro2 = new Cabeleireiro(2L, "Renato", "11683853", "renato@gmial.com", "7838378373");
-        Cabeleireiro cabeleireiro3 = new Cabeleireiro(3L, "Omar", "113853883", "omar@gmial.com", "45663753");
+        Cabeleireiro cabeleireiro1 = new Cabeleireiro(1L, "Robert", "11-92964-2157", "robert@gmail.com", "770.578.060-78");
+        Cabeleireiro cabeleireiro2 = new Cabeleireiro(2L, "Renato", "11-91964-6157", "renato@gmail.com", "834.064.320-77");
+        Cabeleireiro cabeleireiro3 = new Cabeleireiro(3L, "Omar", "11-95954-5857", "omar@gmail.com", "651.111.810-08");
         if (!cabeleireiroRepository.existsByCpf(cabeleireiro1.getCpf())) {
             cabeleireiroRepository.save(cabeleireiro1);
         }

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -52,4 +53,5 @@ public class CabeleireiroController {
         var cabeleireiro = service.findById(id);
         return ResponseEntity.ok().body(new DadosDetalhamentoCabeleireiro(cabeleireiro));
     }
+
 }
