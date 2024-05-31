@@ -45,10 +45,10 @@ public class CabeleireiroController {
     @DeleteMapping("/{id}")
     public ResponseEntity excluirCabeleireiro(@PathVariable Long id){
         service.deletar(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Cabeleireiro " + id + " deletado com sucesso!");
+        return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(value = "{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<DadosDetalhamentoCabeleireiro> findById(@PathVariable Long id){
         var cabeleireiro = service.findById(id);
         return ResponseEntity.ok().body(new DadosDetalhamentoCabeleireiro(cabeleireiro));

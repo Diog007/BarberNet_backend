@@ -39,6 +39,9 @@ public class CabeleireiroService {
 
     public void deletar(Long id) {
         Cabeleireiro cabeleireiro = repository.getReferenceById(id);
+        if(cabeleireiro.getAgendamentos().size() > 0) {
+            throw new ValidacaoException("cabeleireiros possui agendamentos");
+        }
         repository.deleteById(id);
     }
 
