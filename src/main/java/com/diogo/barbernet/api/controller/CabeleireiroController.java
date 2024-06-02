@@ -36,9 +36,9 @@ public class CabeleireiroController {
         return ResponseEntity.ok().body(listCabeleireiro);
     }
 
-    @PutMapping
-    public ResponseEntity<DadosAtulizacaoCabeleireiro> atualizarCabeleireiro ( @RequestBody @Valid DadosAtulizacaoCabeleireiro dados){
-        Cabeleireiro cabeleireiro = service.atualizarCabeleireiro(dados);
+    @PutMapping("/{id}")
+    public ResponseEntity<DadosAtulizacaoCabeleireiro> atualizarCabeleireiro (@PathVariable Long id, @RequestBody @Valid DadosAtulizacaoCabeleireiro dados){
+        Cabeleireiro cabeleireiro = service.atualizarCabeleireiro(id, dados);
         return ResponseEntity.ok().body(new DadosAtulizacaoCabeleireiro(cabeleireiro));
     }
 
