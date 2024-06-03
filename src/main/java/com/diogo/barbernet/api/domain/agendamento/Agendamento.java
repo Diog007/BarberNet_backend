@@ -2,9 +2,12 @@ package com.diogo.barbernet.api.domain.agendamento;
 
 import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
 import com.diogo.barbernet.api.domain.cliente.Cliente;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -27,6 +30,17 @@ public class Agendamento {
     @JoinColumn(name = "cabeleireiro_id")
     private Cabeleireiro cabeleireiro;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataCriacao = LocalDate.now();
 
     private LocalDateTime dataHora;
+
+    private BigDecimal precoEstimado;
+
+    @Enumerated(EnumType.STRING)
+    private StatusAgendamento status;
+
+    @Enumerated(EnumType.STRING)
+    private MetodoPagamento metodoPagamento;
+
 }
