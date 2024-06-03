@@ -36,16 +36,16 @@ public class ClienteController {
         return ResponseEntity.ok().body(listCliente);
     }
 
-    @PutMapping
-    public ResponseEntity<DadosAtulizacaoCliente> atualizarCliente ( @RequestBody @Valid DadosAtulizacaoCliente dados){
-        Cliente cliente = service.atualizarCliente(dados);
+    @PutMapping("/{id}")
+    public ResponseEntity<DadosAtulizacaoCliente> atualizarCliente (@PathVariable Long id, @RequestBody @Valid DadosAtulizacaoCliente dados){
+        Cliente cliente = service.atualizarCliente(id, dados);
         return ResponseEntity.ok().body(new DadosAtulizacaoCliente(cliente));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity excluirCliente(@PathVariable Long id){
         service.deletar(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Cliente " + id + " deletado com sucesso!");
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping(value = "{id}")
