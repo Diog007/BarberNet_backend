@@ -1,10 +1,12 @@
 package com.diogo.barbernet.api.domain.cabeleireiro;
 
 import com.diogo.barbernet.api.domain.agendamento.Agendamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,9 @@ public class Cabeleireiro {
     @JsonIgnore
     @OneToMany(mappedBy = "cabeleireiro")
     private List<Agendamento> agendamentos = new ArrayList<>();
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    protected LocalDate admissao = LocalDate.now();
 
     public Cabeleireiro(DadosCadastroCabeleireiro dados) {
         this.nome = dados.nome();
