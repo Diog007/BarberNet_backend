@@ -15,7 +15,7 @@ public class ValidadorClienteSemOutroAgendamentoNoDia implements ValidadorAgenda
     public void validar(DadosAgendamentoCorte dados) {
         var primeiroHorario = dados.data().withHour(7);
         var ultimoHorario = dados.data().withHour(18);
-        var clientePossuiOutroAgendamentoNoDia = repository.existsByClienteIdAndDataHoraBetween(dados.idCliente(), primeiroHorario, ultimoHorario);
+        var clientePossuiOutroAgendamentoNoDia = repository.existsByClienteIdAndDataHoraBetween(dados.cliente(), primeiroHorario, ultimoHorario);
         if(clientePossuiOutroAgendamentoNoDia){
             throw new ValidacaoException("cliente ja possui agendamento marcado para este dia!");
         }

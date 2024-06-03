@@ -2,6 +2,8 @@ package com.diogo.barbernet.api.services;
 
 import com.diogo.barbernet.api.domain.agendamento.Agendamento;
 import com.diogo.barbernet.api.domain.agendamento.AgendamentoRepository;
+import com.diogo.barbernet.api.domain.agendamento.MetodoPagamento;
+import com.diogo.barbernet.api.domain.agendamento.StatusAgendamento;
 import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
 import com.diogo.barbernet.api.domain.cabeleireiro.CabeleireiroRepository;
 import com.diogo.barbernet.api.domain.cliente.Cliente;
@@ -13,7 +15,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
@@ -65,17 +70,19 @@ public class DataInitializer implements CommandLineRunner {
             cabeleireiroRepository.save(cabeleireiro3);
         }
 
-        LocalDateTime dataHora1 = LocalDateTime.parse("2024-03-01T10:15:30");
-        LocalDateTime dataHora2 = LocalDateTime.parse("2024-03-02T10:15:30");
-        LocalDateTime dataHora3 = LocalDateTime.parse("2024-03-03T10:15:30");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
-        Agendamento agendamento1 = new Agendamento(null, cliente1, cabeleireiro1, dataHora1);
-        Agendamento agendamento2 = new Agendamento(null, cliente2, cabeleireiro2, dataHora2);
-        Agendamento agendamento3 = new Agendamento(null, cliente3, cabeleireiro3, dataHora3);
+        LocalDateTime dataHora1 = LocalDateTime.parse("2024-06-10T10:15:30");
+        LocalDateTime dataHora2 = LocalDateTime.parse("2024-06-11T15:30:00", formatter);
+        LocalDateTime dataHora3 = LocalDateTime.parse("2024-06-12T10:15:30", formatter);
+
+        Agendamento agendamento1 = new Agendamento(null, cliente1, cabeleireiro1, LocalDate.now(), dataHora1, new BigDecimal("25.00"), StatusAgendamento.PENDENTE, MetodoPagamento.CARTAO_CREDITO);
+//        Agendamento agendamento2 = new Agendamento(null, cliente2, cabeleireiro2, dataHora2);
+//        Agendamento agendamento3 = new Agendamento(null, cliente3, cabeleireiro3, dataHora3);
         // Certifique-se de tratar possíveis exceções relacionadas à data e hora aqui
         agendamentoRepository.save(agendamento1);
-        agendamentoRepository.save(agendamento2);
-        agendamentoRepository.save(agendamento3);
+//        agendamentoRepository.save(agendamento2);
+//        agendamentoRepository.save(agendamento3);
     }
 }
 

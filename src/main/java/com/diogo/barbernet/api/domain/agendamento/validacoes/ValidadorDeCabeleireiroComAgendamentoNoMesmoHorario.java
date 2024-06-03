@@ -14,7 +14,7 @@ public class ValidadorDeCabeleireiroComAgendamentoNoMesmoHorario implements Vali
 
     @Override
     public void validar(DadosAgendamentoCorte dados) {
-        var cabeleireiroPossuiOutraAgendamentoNoMesmoHorario = repository.existsByCabeleireiroIdAndDataHora(dados.idCabeleireiro(), dados.data());
+        var cabeleireiroPossuiOutraAgendamentoNoMesmoHorario = repository.existsByCabeleireiroIdAndDataHora(dados.cabeleireiro(), dados.data());
         if(cabeleireiroPossuiOutraAgendamentoNoMesmoHorario){
             throw  new ValidacaoException("Cabeleireiro já possuii um agendamento para este horario!!");
         }

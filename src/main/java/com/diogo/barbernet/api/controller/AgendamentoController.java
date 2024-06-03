@@ -1,7 +1,6 @@
 package com.diogo.barbernet.api.controller;
 
 import com.diogo.barbernet.api.domain.agendamento.Agendamento;
-import com.diogo.barbernet.api.domain.agendamento.AgendamentoCorte;
 import com.diogo.barbernet.api.domain.agendamento.DadosAgendamentoCorte;
 import com.diogo.barbernet.api.domain.agendamento.DadosDetalhamentoAgendamento;
 import com.diogo.barbernet.api.services.AgendamentoService;
@@ -21,14 +20,18 @@ import java.util.stream.Collectors;
 public class AgendamentoController {
 
     @Autowired
-    private AgendamentoCorte agendamentoCorte;
+    private AgendamentoService agendamentoService;
+
     @Autowired
     private AgendamentoService service;
+
+    @Autowired
+    private AgendamentoCorte agendamentoCorte;
 
     @PostMapping
     @Transactional
     public ResponseEntity agendarCorte(@RequestBody @Valid DadosAgendamentoCorte dados){
-        var agendar = agendamentoCorte.agendar(dados);
+        var agendar = agendamentoService.agendar(dados);
         return ResponseEntity.ok(agendar);
     }
 
