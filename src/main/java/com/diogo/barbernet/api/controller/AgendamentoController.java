@@ -22,12 +22,6 @@ public class AgendamentoController {
     @Autowired
     private AgendamentoService agendamentoService;
 
-    @Autowired
-    private AgendamentoService service;
-
-    @Autowired
-    private AgendamentoCorte agendamentoCorte;
-
     @PostMapping
     @Transactional
     public ResponseEntity agendarCorte(@RequestBody @Valid DadosAgendamentoCorte dados){
@@ -38,13 +32,13 @@ public class AgendamentoController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity cancelarCorte(@PathVariable @Valid Long id){
-        agendamentoCorte.cancelarAgendamento(id);
+        agendamentoService.cancelarAgendamento(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
     public ResponseEntity<List<DadosDetalhamentoAgendamento>> listarConsulta(){
-        List<Agendamento> listAgenda = service.listarAgendamento();
+        List<Agendamento> listAgenda = agendamentoService.listarAgendamento();
         List<DadosDetalhamentoAgendamento> listar = listAgenda.stream()
                 .map(DadosDetalhamentoAgendamento::new)
                 .collect(Collectors.toList());
