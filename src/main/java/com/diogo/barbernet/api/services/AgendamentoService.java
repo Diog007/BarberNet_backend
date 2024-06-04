@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,9 +52,6 @@ public class AgendamentoService {
         if (dados.cabeleireiro() != null && !cabeleireiroRepository.existsById(Long.valueOf(dados.cabeleireiro()))) {
             throw new ValidacaoException("Id do medico informado nao existe!");
         }
-
-        dados.data().minus(3, ChronoUnit.HOURS);
-
         validadores.forEach(v -> v.validar(dados));
 
         var cliente = clienteRepository.getReferenceById(dados.cliente());

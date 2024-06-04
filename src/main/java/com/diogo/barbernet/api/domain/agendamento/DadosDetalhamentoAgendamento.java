@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public record DadosDetalhamentoAgendamento(
         Long id,
@@ -23,10 +25,16 @@ public record DadosDetalhamentoAgendamento(
                 agendamento.getCabeleireiro().getNome(),
                 agendamento.getCliente().getNome(),
                 agendamento.getDataCriacao(),
-                agendamento.getDataHora(),
+                convertToBrasilia(agendamento.getDataHora()),
                 agendamento.getPrecoEstimado(),
                 agendamento.getStatus(),
                 agendamento.getMetodoPagamento()
         );
+    }
+
+    private static LocalDateTime convertToBrasilia(LocalDateTime utcDateTime) {
+        ZoneId brasiliaZoneId = ZoneId.of("America/Sao_Paulo");
+        ZonedDateTime brasiliaDateTime = utcDateTime.atZone(ZoneId.of("UTC")).withZoneSameInstant(brasiliaZoneId);
+        return brasiliaDateTime.toLocalDateTime();
     }
 }
