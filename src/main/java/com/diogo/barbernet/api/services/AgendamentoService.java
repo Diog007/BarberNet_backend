@@ -75,4 +75,8 @@ public class AgendamentoService {
         agendamentoRepository.deleteById(agenda.getId());
     }
 
+    public Agendamento findById(Long id) {
+        Optional<Agendamento> agendamento = repository.findById(id);
+        return agendamento.orElseThrow(() -> new ValidacaoException("Objeto não encontrado! ID:" + id));
+    }
 }

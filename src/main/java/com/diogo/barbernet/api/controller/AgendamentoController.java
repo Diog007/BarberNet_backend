@@ -3,6 +3,7 @@ package com.diogo.barbernet.api.controller;
 import com.diogo.barbernet.api.domain.agendamento.Agendamento;
 import com.diogo.barbernet.api.domain.agendamento.DadosAgendamentoCorte;
 import com.diogo.barbernet.api.domain.agendamento.DadosDetalhamentoAgendamento;
+import com.diogo.barbernet.api.domain.agendamento.DadosDetalhamentoAgendamentoId;
 import com.diogo.barbernet.api.services.AgendamentoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
@@ -21,6 +22,12 @@ public class AgendamentoController {
 
     @Autowired
     private AgendamentoService agendamentoService;
+
+    @GetMapping(value = "{id}")
+    public ResponseEntity<DadosDetalhamentoAgendamentoId> findById(@PathVariable Long id){
+        Agendamento agendamento = agendamentoService.findById(id);
+        return ResponseEntity.ok().body(new DadosDetalhamentoAgendamentoId(agendamento));
+    }
 
     @PostMapping
     @Transactional
