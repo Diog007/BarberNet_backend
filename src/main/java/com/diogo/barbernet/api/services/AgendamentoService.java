@@ -1,10 +1,7 @@
 package com.diogo.barbernet.api.services;
 
 import com.diogo.barbernet.api.domain.ValidacaoException;
-import com.diogo.barbernet.api.domain.agendamento.Agendamento;
-import com.diogo.barbernet.api.domain.agendamento.AgendamentoRepository;
-import com.diogo.barbernet.api.domain.agendamento.DadosAgendamentoCorte;
-import com.diogo.barbernet.api.domain.agendamento.DadosDetalhamentoAgendamento;
+import com.diogo.barbernet.api.domain.agendamento.*;
 import com.diogo.barbernet.api.domain.agendamento.validacoes.ValidadorAgendamentoDeCorte;
 import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
 import com.diogo.barbernet.api.domain.cabeleireiro.CabeleireiroRepository;
@@ -78,5 +75,21 @@ public class AgendamentoService {
     public Agendamento findById(Long id) {
         Optional<Agendamento> agendamento = repository.findById(id);
         return agendamento.orElseThrow(() -> new ValidacaoException("Objeto não encontrado! ID:" + id));
+    }
+
+    public void update(Long id, DadosAtualizarCorte dados) {
+        Agendamento agendamentoUpdate = findById(id);
+        var cabeleireiro = cabeleireiroService.findById(Long.valueOf(dados.cabeleireiro()));
+        var cliente = clienteService.findById(Long.valueOf(dados.cliente()));
+
+        agendamentoUpdate.setCabeleireiro(cabeleireiro);
+        agendamentoUpdate.setCliente(cliente);
+        agendamentoUpdate.setStatus(dados.statusAgendamento());
+        agendamentoUpdate.setDataHora(dados.data());
+        agendamentoUpdate.setDataCriacao(LocalDate.now());
+        agendamentoUpdate.setPrecoEstimado(dados.precoEstimado());
+        agendamentoUpdate.setMetodoPagamento(dados.metodoPagamento());
+
+        this.repository.save(agendamentoUpdate);
     }
 }

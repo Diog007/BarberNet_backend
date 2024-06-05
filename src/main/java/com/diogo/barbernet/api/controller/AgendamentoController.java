@@ -1,9 +1,6 @@
 package com.diogo.barbernet.api.controller;
 
-import com.diogo.barbernet.api.domain.agendamento.Agendamento;
-import com.diogo.barbernet.api.domain.agendamento.DadosAgendamentoCorte;
-import com.diogo.barbernet.api.domain.agendamento.DadosDetalhamentoAgendamento;
-import com.diogo.barbernet.api.domain.agendamento.DadosDetalhamentoAgendamentoId;
+import com.diogo.barbernet.api.domain.agendamento.*;
 import com.diogo.barbernet.api.services.AgendamentoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
@@ -51,4 +48,11 @@ public class AgendamentoController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(listar);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateAgendamento(@PathVariable Long id, @RequestBody DadosAtualizarCorte dados) {
+        this.agendamentoService.update(id, dados);
+        return ResponseEntity.ok().build();
+    }
+
 }
