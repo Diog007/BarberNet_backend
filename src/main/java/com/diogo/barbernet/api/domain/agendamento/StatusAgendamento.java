@@ -1,7 +1,7 @@
 package com.diogo.barbernet.api.domain.agendamento;
 
 public enum StatusAgendamento {
-    PENDENTE,
+    EM_ABERTO,
     CONFIRMADO,
     CANCELADO,
     CONCLUIDO
