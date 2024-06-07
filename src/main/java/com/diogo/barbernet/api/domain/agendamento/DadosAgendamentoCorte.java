@@ -18,6 +18,7 @@ public record DadosAgendamentoCorte(
         LocalDateTime data,
         BigDecimal precoEstimado,
         StatusAgendamento statusAgendamento,
-        MetodoPagamento metodoPagamento ) {
+        MetodoPagamento metodoPagamento,
+        String observacao) {
 
 }

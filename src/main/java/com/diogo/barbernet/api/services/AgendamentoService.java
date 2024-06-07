@@ -61,14 +61,14 @@ public class AgendamentoService {
         agendamento.setPrecoEstimado(dados.precoEstimado());
         agendamento.setStatus(dados.statusAgendamento());
         agendamento.setMetodoPagamento(dados.metodoPagamento());
-
+        agendamento.setObservacao(dados.observacao());
         agendamentoRepository.save(agendamento);
 
         return new DadosDetalhamentoAgendamento(agendamento);
     }
 
     public void cancelarAgendamento (Long id) {
-        Agendamento agenda = agendamentoRepository.findById(id).orElse(null);
+        Agendamento agenda = this.findById(id);
         agendamentoRepository.deleteById(agenda.getId());
     }
 
@@ -89,6 +89,7 @@ public class AgendamentoService {
         agendamentoUpdate.setDataCriacao(LocalDate.now());
         agendamentoUpdate.setPrecoEstimado(dados.precoEstimado());
         agendamentoUpdate.setMetodoPagamento(dados.metodoPagamento());
+        agendamentoUpdate.setObservacao(dados.observacao());
 
         this.repository.save(agendamentoUpdate);
     }

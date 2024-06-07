@@ -76,9 +76,9 @@ public class DataInitializer implements CommandLineRunner {
         LocalDateTime dataHora2 = LocalDateTime.parse("2024-06-11T15:30:00", formatter);
         LocalDateTime dataHora3 = LocalDateTime.parse("2024-06-12T10:15:30", formatter);
 
-        Agendamento agendamento1 = new Agendamento(null, cliente1, cabeleireiro1, LocalDate.now(), dataHora1, new BigDecimal("25.80"), StatusAgendamento.PENDENTE, MetodoPagamento.CARTAO_CREDITO);
-        Agendamento agendamento2 = new Agendamento(null, cliente2, cabeleireiro2, LocalDate.now(), dataHora1, new BigDecimal("50.20"), StatusAgendamento.CONCLUIDO, MetodoPagamento.CARTAO_DEBITO);
-        Agendamento agendamento3 = new Agendamento(null, cliente3, cabeleireiro3, LocalDate.now(), dataHora1, new BigDecimal("60.60"), StatusAgendamento.CANCELADO, MetodoPagamento.PIX);
+        Agendamento agendamento1 = new Agendamento(null, cliente1, cabeleireiro1, LocalDate.now(), dataHora1, new BigDecimal("25.80"), StatusAgendamento.EM_ABERTO, MetodoPagamento.CARTAO_CREDITO, "sei la");
+        Agendamento agendamento2 = new Agendamento(null, cliente2, cabeleireiro2, LocalDate.now(), dataHora1, new BigDecimal("50.20"), StatusAgendamento.CONCLUIDO, MetodoPagamento.CARTAO_DEBITO, "sei la");
+        Agendamento agendamento3 = new Agendamento(null, cliente3, cabeleireiro3, LocalDate.now(), dataHora1, new BigDecimal("60.60"), StatusAgendamento.CANCELADO, MetodoPagamento.PIX,"sei la");
         agendamentoRepository.save(agendamento1);
         agendamentoRepository.save(agendamento2);
         agendamentoRepository.save(agendamento3);

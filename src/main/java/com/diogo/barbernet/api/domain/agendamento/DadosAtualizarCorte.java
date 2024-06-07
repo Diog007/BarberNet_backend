@@ -10,6 +10,7 @@ public record DadosAtualizarCorte(
         LocalDateTime data,
         BigDecimal precoEstimado,
         StatusAgendamento statusAgendamento,
-        MetodoPagamento metodoPagamento ) {
+        MetodoPagamento metodoPagamento,
+        String observacao) {
 
 }

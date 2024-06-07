@@ -16,7 +16,8 @@ public record DadosDetalhamentoAgendamento(
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss") LocalDateTime data,
         BigDecimal precoEstimado,
         StatusAgendamento statusAgendamento,
-        MetodoPagamento metodoPagamento
+        MetodoPagamento metodoPagamento,
+        String observacao
 ) {
 
     public DadosDetalhamentoAgendamento(Agendamento agendamento){
@@ -28,7 +29,8 @@ public record DadosDetalhamentoAgendamento(
                 convertToBrasilia(agendamento.getDataHora()),
                 agendamento.getPrecoEstimado(),
                 agendamento.getStatus(),
-                agendamento.getMetodoPagamento()
+                agendamento.getMetodoPagamento(),
+                agendamento.getObservacao()
         );
     }
 

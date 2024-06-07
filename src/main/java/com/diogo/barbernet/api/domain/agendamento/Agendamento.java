@@ -43,4 +43,5 @@ public class Agendamento {
     @Enumerated(EnumType.STRING)
     private MetodoPagamento metodoPagamento;
 
+    private String observacao;
 }
