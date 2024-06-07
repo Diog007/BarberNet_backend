@@ -26,17 +26,11 @@ public record DadosDetalhamentoAgendamento(
                 agendamento.getCabeleireiro().getNome(),
                 agendamento.getCliente().getNome(),
                 agendamento.getDataCriacao(),
-                convertToBrasilia(agendamento.getDataHora()),
+                agendamento.getDataHora(),
                 agendamento.getPrecoEstimado(),
                 agendamento.getStatus(),
                 agendamento.getMetodoPagamento(),
                 agendamento.getObservacao()
         );
-    }
-
-    private static LocalDateTime convertToBrasilia(LocalDateTime utcDateTime) {
-        ZoneId brasiliaZoneId = ZoneId.of("America/Sao_Paulo");
-        ZonedDateTime brasiliaDateTime = utcDateTime.atZone(ZoneId.of("UTC")).withZoneSameInstant(brasiliaZoneId);
-        return brasiliaDateTime.toLocalDateTime();
     }
 }

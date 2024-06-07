@@ -72,9 +72,9 @@ public class DataInitializer implements CommandLineRunner {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
-        LocalDateTime dataHora1 = LocalDateTime.parse("2024-06-10T10:15:30");
-        LocalDateTime dataHora2 = LocalDateTime.parse("2024-06-11T15:30:00", formatter);
-        LocalDateTime dataHora3 = LocalDateTime.parse("2024-06-12T10:15:30", formatter);
+        LocalDateTime dataHora1 = LocalDateTime.parse("2024-06-10T14:15:30");
+        LocalDateTime dataHora2 = LocalDateTime.parse("2024-06-11T14:30:00");
+        LocalDateTime dataHora3 = LocalDateTime.parse("2024-06-12T14:15:30");
 
         Agendamento agendamento1 = new Agendamento(null, cliente1, cabeleireiro1, LocalDate.now(), dataHora1, new BigDecimal("25.80"), StatusAgendamento.EM_ABERTO, MetodoPagamento.CARTAO_CREDITO, "sei la");
         Agendamento agendamento2 = new Agendamento(null, cliente2, cabeleireiro2, LocalDate.now(), dataHora1, new BigDecimal("50.20"), StatusAgendamento.CONCLUIDO, MetodoPagamento.CARTAO_DEBITO, "sei la");
