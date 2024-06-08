@@ -15,8 +15,8 @@ public class ValidadorHorarioAntecedencia implements ValidadorAgendamentoDeCorte
         var agora = LocalDateTime.now();
         var diferancaEmMinutos = Duration.between(agora, dataCorte).toMinutes();
 
-        if(diferancaEmMinutos < 60) {
-            throw  new ValidacaoException("Corte deve ser agendado com atecendencia de 1 hora!");
+        if(diferancaEmMinutos < 30) {
+            throw  new ValidacaoException("Agendamento deve ser com 30 minutos de antecedência!");
         }
     }
 }
