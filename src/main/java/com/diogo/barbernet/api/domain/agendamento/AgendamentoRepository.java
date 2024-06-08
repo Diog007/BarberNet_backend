@@ -5,11 +5,11 @@ import com.diogo.barbernet.api.domain.cliente.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> {
-    boolean existsByCabeleireiroIdAndDataHora(Long idCabeleireiro, LocalDateTime data);
 
     boolean existsByClienteIdAndDataHoraBetween(Long aLong, LocalDateTime primeiroHorario, LocalDateTime ultimoHorario);
 
-    boolean existsByClienteAndCabeleireiroAndDataHora(Cliente cliente, Cabeleireiro cabeleireiro, LocalDateTime dataHora);
+    boolean existsByCabeleireiroIdAndDataHoraBetweenAndStatusNotIn(Long cabeleireiro, LocalDateTime inicioIntervalo, LocalDateTime fimIntervalo, List<StatusAgendamento> statusExcluidos);
 }
