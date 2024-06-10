@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity
+@Data
 public class Cabeleireiro {
 
     @Id

@@ -93,4 +93,10 @@ public class AgendamentoService {
 
         this.repository.save(agendamentoUpdate);
     }
+
+    public void atualizarStatus(Long id, DadoAtualizarStatus atualizarStatus) {
+        Agendamento agend = findById(id);
+        agend.setStatus(atualizarStatus.status());
+        repository.save(agend);
+    }
 }

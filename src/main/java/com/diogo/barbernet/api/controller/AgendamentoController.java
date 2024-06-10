@@ -40,6 +40,12 @@ public class AgendamentoController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/status/{id}")
+    public ResponseEntity atualizarStqatus(@PathVariable @Valid Long id, @RequestBody DadoAtualizarStatus atualizarStatus) {
+        agendamentoService.atualizarStatus(id, atualizarStatus);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping
     public ResponseEntity<List<DadosDetalhamentoAgendamento>> listarConsulta(){
         List<Agendamento> listAgenda = agendamentoService.listarAgendamento();
