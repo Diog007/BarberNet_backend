@@ -1,5 +1,6 @@
 package com.diogo.barbernet.api.services;
 
+import com.diogo.barbernet.api.domain.ValidacaoException;
 import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
 import com.diogo.barbernet.api.domain.ponto.DadosDeEntrada;
 import com.diogo.barbernet.api.domain.ponto.Ponto;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class PontoService {
@@ -25,5 +27,18 @@ public class PontoService {
         ponto.setEntrada(LocalDateTime.now());
         pontoRepository.save(ponto);
     }
+
+    public void saida(DadosDeEntrada dados) {
+        Cabeleireiro cabeleireiro = cabeleireiroService.findByCpf(dados.cpf());
+        Optional<Ponto> pontoOptional = pontoRepository.findByCabeleireiroCpf(cabeleireiro.getCpf());
+        if (pontoOptional.isPresent()) {
+            Ponto ponto = pontoOptional.get();
+            ponto.setSaida(LocalDateTime.now());
+            pontoRepository.save(ponto);
+        } else {
+            throw new ValidacaoException("Ponto não encontrado para o CPF: " + dados.cpf());
+        }
+    }
+
 
 }

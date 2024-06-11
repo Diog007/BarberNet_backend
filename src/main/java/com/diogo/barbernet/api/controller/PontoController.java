@@ -19,4 +19,10 @@ public class PontoController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("saida")
+    private ResponseEntity saida (@RequestBody DadosDeEntrada dados) {
+        this.pontoService.saida(dados);
+        return ResponseEntity.ok().build();
+    }
+
 }
