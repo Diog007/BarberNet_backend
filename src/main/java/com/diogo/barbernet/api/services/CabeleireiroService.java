@@ -47,7 +47,7 @@ public class CabeleireiroService {
 
     public Cabeleireiro findById(Long id) {
         var cabeleireiro = repository.findById(id);
-        return cabeleireiro.orElse(null);
+        return cabeleireiro.orElseThrow(() -> new ValidacaoException("Cabeleireiro não encontrado"));
     }
 
     private void validaPorCpfEEmail(DadosCadastroCabeleireiro cabeleireiro) {
@@ -59,5 +59,10 @@ public class CabeleireiroService {
         if(obj.isPresent()) {
             throw new ValidacaoException("E-mail já cadastrado no sistema!");
         }
+    }
+
+    public Cabeleireiro findByCpf(String cpf) {
+        var cabeleireiro = repository.findByCpf(cpf);
+        return cabeleireiro.orElse(null);
     }
 }

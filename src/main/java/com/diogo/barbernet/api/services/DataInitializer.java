@@ -18,23 +18,27 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
+
     @Autowired
     private CabeleireiroRepository cabeleireiroRepository;
+
     @Autowired
     private ClienteRepository clienteRepository;
+
     @Autowired
     private AgendamentoRepository agendamentoRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Autowired
     private UsuarioRepository usuarioRepository;
-    @Override
 
+    @Override
     public void run(String... args) throws Exception {
         String login = "test@test.com";
         String senha = "123";
@@ -44,44 +48,48 @@ public class DataInitializer implements CommandLineRunner {
             usuarioRepository.save(usuario);
         }
 
-        Cliente cliente1 = new Cliente(1L, "Diogo", "11-95971-5957", "diogo@gmail.com", "1211515631");
-        Cliente cliente2 = new Cliente(2L, "Malcon", "11-95843-9571", "malcon@gmail.com", "263515611521");
-        Cliente cliente3 = new Cliente(3L, "Danilo", "11-95964-5157", "danilo@gmail.com", "15212611121");
-        if (!clienteRepository.existsByCpf(cliente1.getCpf())) {
-            clienteRepository.save(cliente1);
-        }
-        if (!clienteRepository.existsByCpf(cliente2.getCpf())) {
-            clienteRepository.save(cliente2);
-        }
-        if (!clienteRepository.existsByCpf(cliente3.getCpf())) {
-            clienteRepository.save(cliente3);
-        }
-
-        Cabeleireiro cabeleireiro1 = new Cabeleireiro(1L, "Robert", "11-92964-2157", "robert@gmail.com", "770.578.060-78");
-        Cabeleireiro cabeleireiro2 = new Cabeleireiro(2L, "Renato", "11-91964-6157", "renato@gmail.com", "834.064.320-77");
-        Cabeleireiro cabeleireiro3 = new Cabeleireiro(3L, "Omar", "11-95954-5857", "omar@gmail.com", "651.111.810-08");
-        if (!cabeleireiroRepository.existsByCpf(cabeleireiro1.getCpf())) {
-            cabeleireiroRepository.save(cabeleireiro1);
-        }
-        if (!cabeleireiroRepository.existsByCpf(cabeleireiro2.getCpf())) {
-            cabeleireiroRepository.save(cabeleireiro2);
-        }
-        if (!cabeleireiroRepository.existsByCpf(cabeleireiro3.getCpf())) {
-            cabeleireiroRepository.save(cabeleireiro3);
+        List<Cliente> clientes = List.of(
+                new Cliente(1L, "Diogo", "11-95971-5957", "diogo@gmail.com", "1211515631"),
+                new Cliente(2L, "Malcon", "11-95843-9571", "malcon@gmail.com", "263515611521"),
+                new Cliente(3L, "Danilo", "11-95964-5157", "danilo@gmail.com", "15212611121"),
+                new Cliente(4L, "Lucas", "11-99999-9999", "lucas@gmail.com", "12345678901"),
+                new Cliente(5L, "Pedro", "11-88888-8888", "pedro@gmail.com", "10987654321"),
+                new Cliente(6L, "Carlos", "11-77777-7777", "carlos@gmail.com", "21345678901"),
+                new Cliente(7L, "Julia", "11-66666-6666", "julia@gmail.com", "32345678901"));
+        for (Cliente cliente : clientes) {
+            if (!clienteRepository.existsByCpf(cliente.getCpf())) {
+                clienteRepository.save(cliente);
+            }
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        List<Cabeleireiro> cabeleireiros = List.of(
+                new Cabeleireiro(1L, "Robert", "11-92964-2157", "robert@gmail.com", "770.578.060-78"),
+                new Cabeleireiro(2L, "Renato", "11-91964-6157", "renato@gmail.com", "834.064.320-77"),
+                new Cabeleireiro(3L, "Omar", "11-95954-5857", "omar@gmail.com", "651.111.810-08"),
+                new Cabeleireiro(4L, "Ana", "11-77777-7777", "ana@gmail.com", "12345678901"),
+                new Cabeleireiro(5L, "Maria", "11-66666-6666", "maria@gmail.com", "10987654321"),
+                new Cabeleireiro(6L, "João", "11-55555-5555", "joao@gmail.com", "20987654321"),
+                new Cabeleireiro(7L, "Clara", "11-44444-4444", "clara@gmail.com", "30987654321")
 
-        LocalDateTime dataHora1 = LocalDateTime.parse("2024-06-10T14:15:30");
-        LocalDateTime dataHora2 = LocalDateTime.parse("2024-06-11T14:30:00");
-        LocalDateTime dataHora3 = LocalDateTime.parse("2024-06-12T14:15:30");
+        );
+        for (Cabeleireiro cabeleireiro : cabeleireiros) {
+            if (!cabeleireiroRepository.existsByCpf(cabeleireiro.getCpf())) {
+                cabeleireiroRepository.save(cabeleireiro);
+            }
+        }
 
-        Agendamento agendamento1 = new Agendamento(null, cliente1, cabeleireiro1, LocalDate.now(), dataHora1, new BigDecimal("25.80"), StatusAgendamento.EM_ABERTO, MetodoPagamento.CARTAO_CREDITO, "sei la");
-        Agendamento agendamento2 = new Agendamento(null, cliente2, cabeleireiro2, LocalDate.now(), dataHora1, new BigDecimal("50.20"), StatusAgendamento.CONCLUIDO, MetodoPagamento.CARTAO_DEBITO, "sei la");
-        Agendamento agendamento3 = new Agendamento(null, cliente3, cabeleireiro3, LocalDate.now(), dataHora1, new BigDecimal("60.60"), StatusAgendamento.CANCELADO, MetodoPagamento.PIX,"sei la");
-        agendamentoRepository.save(agendamento1);
-        agendamentoRepository.save(agendamento2);
-        agendamentoRepository.save(agendamento3);
+        List<Agendamento> agendamentos = List.of(
+                new Agendamento(null, clientes.get(0), cabeleireiros.get(0), LocalDate.now(), LocalDateTime.parse("2024-06-10T14:15:30"), new BigDecimal("25.80"), StatusAgendamento.EM_ABERTO, MetodoPagamento.CARTAO_CREDITO, "sei la"),
+                new Agendamento(null, clientes.get(1), cabeleireiros.get(1), LocalDate.now(), LocalDateTime.parse("2024-06-11T14:30:00"), new BigDecimal("50.20"), StatusAgendamento.CONCLUIDO, MetodoPagamento.CARTAO_DEBITO, "sei la"),
+                new Agendamento(null, clientes.get(2), cabeleireiros.get(2), LocalDate.now(), LocalDateTime.parse("2024-06-12T14:15:30"), new BigDecimal("60.60"), StatusAgendamento.CANCELADO, MetodoPagamento.PIX, "sei la"),
+                new Agendamento(null, clientes.get(3), cabeleireiros.get(3), LocalDate.now(), LocalDateTime.parse("2024-06-13T15:00:00"), new BigDecimal("70.70"), StatusAgendamento.EM_ABERTO, MetodoPagamento.DINHEIRO, "sei la"),
+                new Agendamento(null, clientes.get(4), cabeleireiros.get(4), LocalDate.now(), LocalDateTime.parse("2024-06-14T16:30:00"), new BigDecimal("80.80"), StatusAgendamento.CONCLUIDO, MetodoPagamento.CARTAO_DEBITO, "sei la"),
+                new Agendamento(null, clientes.get(5), cabeleireiros.get(5), LocalDate.now(), LocalDateTime.parse("2024-06-15T17:00:00"), new BigDecimal("90.90"), StatusAgendamento.CANCELADO, MetodoPagamento.CARTAO_CREDITO, "sei la"),
+                new Agendamento(null, clientes.get(6), cabeleireiros.get(6), LocalDate.now(), LocalDateTime.parse("2024-06-16T10:00:00"), new BigDecimal("100.00"), StatusAgendamento.EM_ABERTO, MetodoPagamento.DINHEIRO, "sei la")
+
+        );
+        for (Agendamento agendamento : agendamentos) {
+            agendamentoRepository.save(agendamento);
+        }
     }
 }
-

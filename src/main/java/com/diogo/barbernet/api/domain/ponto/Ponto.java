@@ -1,6 +1,7 @@
 package com.diogo.barbernet.api.domain.ponto;
 
-import jakarta.persistence.Entity;
+import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -13,8 +14,13 @@ import java.time.LocalDateTime;
 @Entity
 public class Ponto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long cabeleireiroId;
+
+    @ManyToOne
+    @JoinColumn(name = "cabeleireiro_id")
+    private Cabeleireiro cabeleireiro;
     private LocalDateTime entrada;
     private LocalDateTime saida;
 }
