@@ -8,11 +8,14 @@ import com.diogo.barbernet.api.domain.cabeleireiro.CabeleireiroRepository;
 import com.diogo.barbernet.api.domain.cliente.Cliente;
 import com.diogo.barbernet.api.domain.cliente.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AgendamentoService {
@@ -98,5 +101,12 @@ public class AgendamentoService {
         Agendamento agend = findById(id);
         agend.setStatus(atualizarStatus.status());
         repository.save(agend);
+    }
+
+    public List<DadosDetalhamentoAgendamento> findAllByAgendamentosPorCabeId(Long id) {
+        var agendamentos = repository.findAllByCabeleireiroId(id);
+        return agendamentos.stream()
+                .map(DadosDetalhamentoAgendamento::new)
+                .collect(Collectors.toList());
     }
 }

@@ -1,14 +1,14 @@
 package com.diogo.barbernet.api.services;
 
 import com.diogo.barbernet.api.domain.ValidacaoException;
-import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
-import com.diogo.barbernet.api.domain.cabeleireiro.CabeleireiroRepository;
-import com.diogo.barbernet.api.domain.cabeleireiro.DadosAtulizacaoCabeleireiro;
-import com.diogo.barbernet.api.domain.cabeleireiro.DadosCadastroCabeleireiro;
+import com.diogo.barbernet.api.domain.agendamento.Agendamento;
+import com.diogo.barbernet.api.domain.agendamento.DadosDetalhamentoAgendamento;
+import com.diogo.barbernet.api.domain.cabeleireiro.*;
 import com.diogo.barbernet.api.domain.cliente.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

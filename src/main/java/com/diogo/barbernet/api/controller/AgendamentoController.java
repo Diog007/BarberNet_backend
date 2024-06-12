@@ -47,7 +47,7 @@ public class AgendamentoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DadosDetalhamentoAgendamento>> listarConsulta(){
+    public ResponseEntity<List<DadosDetalhamentoAgendamento>> listarAgendamento(){
         List<Agendamento> listAgenda = agendamentoService.listarAgendamento();
         List<DadosDetalhamentoAgendamento> listar = listAgenda.stream()
                 .map(DadosDetalhamentoAgendamento::new)
@@ -61,4 +61,9 @@ public class AgendamentoController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/cabeleireiro/{id}")
+    public ResponseEntity<List<DadosDetalhamentoAgendamento>> getAgendamentosByCabeleireiroId(@PathVariable Long id) {
+        List<DadosDetalhamentoAgendamento> agendamentos = agendamentoService.findAllByAgendamentosPorCabeId(id);
+        return ResponseEntity.ok().body(agendamentos);
+    }
 }
