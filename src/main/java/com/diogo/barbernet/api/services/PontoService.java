@@ -1,15 +1,19 @@
 package com.diogo.barbernet.api.services;
 
 import com.diogo.barbernet.api.domain.ValidacaoException;
+import com.diogo.barbernet.api.domain.agendamento.DadosDetalhamentoAgendamento;
 import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
 import com.diogo.barbernet.api.domain.ponto.DadosDeEntrada;
+import com.diogo.barbernet.api.domain.ponto.DadosDetalhamentoPontos;
 import com.diogo.barbernet.api.domain.ponto.Ponto;
 import com.diogo.barbernet.api.domain.ponto.PontoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PontoService {
@@ -41,4 +45,10 @@ public class PontoService {
     }
 
 
+    public List<DadosDetalhamentoPontos> findAllpontos() {
+        var lista = pontoRepository.findAll();
+        return lista.stream()
+                .map(DadosDetalhamentoPontos::new)
+                .collect(Collectors.toList());
+    }
 }
