@@ -109,4 +109,11 @@ public class AgendamentoService {
                 .map(DadosDetalhamentoAgendamento::new)
                 .collect(Collectors.toList());
     }
+
+    public List<DadosDetalhamentoAgendamento> findAllByAgendamentosPorCLiId(Long id) {
+        var agendamentos = repository.findAllByClienteId(id);
+        return agendamentos.stream()
+                .map(DadosDetalhamentoAgendamento::new)
+                .collect(Collectors.toList());
+    }
 }

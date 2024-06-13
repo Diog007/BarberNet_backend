@@ -66,4 +66,10 @@ public class AgendamentoController {
         List<DadosDetalhamentoAgendamento> agendamentos = agendamentoService.findAllByAgendamentosPorCabeId(id);
         return ResponseEntity.ok().body(agendamentos);
     }
+
+    @GetMapping("/cliente/{id}")
+    public ResponseEntity<List<DadosDetalhamentoAgendamento>> getAgendamentosByClienteId(@PathVariable Long id) {
+        List<DadosDetalhamentoAgendamento> agendamentos = agendamentoService.findAllByAgendamentosPorCLiId(id);
+        return ResponseEntity.ok().body(agendamentos);
+    }
 }
