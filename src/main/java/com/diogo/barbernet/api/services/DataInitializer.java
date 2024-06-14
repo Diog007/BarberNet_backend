@@ -8,6 +8,8 @@ import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
 import com.diogo.barbernet.api.domain.cabeleireiro.CabeleireiroRepository;
 import com.diogo.barbernet.api.domain.cliente.Cliente;
 import com.diogo.barbernet.api.domain.cliente.ClienteRepository;
+import com.diogo.barbernet.api.domain.ponto.Ponto;
+import com.diogo.barbernet.api.domain.ponto.PontoRepository;
 import com.diogo.barbernet.api.domain.usuario.Usuario;
 import com.diogo.barbernet.api.domain.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private PontoRepository pontoRepository;
+
     @Override
     public void run(String... args) throws Exception {
         String login = "test@test.com";
@@ -63,9 +68,9 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         List<Cabeleireiro> cabeleireiros = List.of(
-                new Cabeleireiro(1L, "Robert", "11-92964-2157", "robert@gmail.com", "770.578.060-78"),
-                new Cabeleireiro(2L, "Renato", "11-91964-6157", "renato@gmail.com", "834.064.320-77"),
-                new Cabeleireiro(3L, "Omar", "11-95954-5857", "omar@gmail.com", "651.111.810-08"),
+                new Cabeleireiro(1L, "Robert do Santos", "11-92964-2157", "robert@gmail.com", "77057806078"),
+                new Cabeleireiro(2L, "Renato", "11-91964-6157", "renato@gmail.com", "83406432077"),
+                new Cabeleireiro(3L, "Omar", "11-95954-5857", "omar@gmail.com", "65111181008"),
                 new Cabeleireiro(4L, "Ana", "11-77777-7777", "ana@gmail.com", "12345678901"),
                 new Cabeleireiro(5L, "Maria", "11-66666-6666", "maria@gmail.com", "10987654321"),
                 new Cabeleireiro(6L, "João", "11-55555-5555", "joao@gmail.com", "20987654321"),
@@ -91,5 +96,15 @@ public class DataInitializer implements CommandLineRunner {
         for (Agendamento agendamento : agendamentos) {
             agendamentoRepository.save(agendamento);
         }
+
+        var cab = new Cabeleireiro(1L, "Robert", "11-92964-2157", "robert@gmail.com", "770.578.060-78");
+
+        Ponto ponto1 = new Ponto(null, cab, LocalDateTime.now().minusHours(8), LocalDateTime.now().minusHours(4));
+
+
+        pontoRepository.save(ponto1);
+
     }
-}
+
+    }
+

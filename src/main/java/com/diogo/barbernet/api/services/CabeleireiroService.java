@@ -63,6 +63,6 @@ public class CabeleireiroService {
 
     public Cabeleireiro findByCpf(String cpf) {
         var cabeleireiro = repository.findByCpf(cpf);
-        return cabeleireiro.orElseThrow(() -> new ValidacaoException("Cpf não encontrado"));
+        return cabeleireiro.orElseThrow(() -> new ValidacaoException("CPF não encontrado!"));
     }
 }

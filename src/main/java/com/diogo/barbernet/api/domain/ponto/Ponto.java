@@ -1,6 +1,7 @@
 package com.diogo.barbernet.api.domain.ponto;
 
 import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
+import com.diogo.barbernet.api.domain.cliente.Cliente;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,4 +24,5 @@ public class Ponto {
     private Cabeleireiro cabeleireiro;
     private LocalDateTime entrada;
     private LocalDateTime saida;
+
 }
