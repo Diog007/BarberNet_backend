@@ -46,14 +46,7 @@ public class AgendamentoService {
     }
 
     public DadosDetalhamentoAgendamento agendar(DadosAgendamentoCorte dados) {
-        if (!clienteRepository.existsById(Long.valueOf(dados.cliente()))) {
-            throw new ValidacaoException("Id do cliente informado nao existe!");
-        }
-        if (dados.cabeleireiro() != null && !cabeleireiroRepository.existsById(Long.valueOf(dados.cabeleireiro()))) {
-            throw new ValidacaoException("Id do cabeleireiro informado nao existe!");
-        }
         validadores.forEach(v -> v.validar(dados));
-
         var cliente = clienteRepository.getReferenceById(dados.cliente());
         var cabeleireiro = cabeleireiroRepository.getReferenceById(dados.cabeleireiro());
 
