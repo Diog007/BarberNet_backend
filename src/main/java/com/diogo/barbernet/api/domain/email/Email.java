@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "TB_EMAIL")
-public class EmailModel implements Serializable {
+public class Email implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
