@@ -28,6 +28,7 @@ public class ClienteService {
     }
 
     public Cliente cadastrarCliente(DadosCadastroCliente dados){
+        validaPorCpfEEmail(dados);
         Cliente newDados = new Cliente(dados);
         sendEmailCliente(newDados);
         return repository.save(newDados);
@@ -53,6 +54,14 @@ public class ClienteService {
             throw new ValidacaoException("cliente possui agendamentos");
         }
         repository.deleteById(id);
+    }
+
+    private void validaPorCpfEEmail(DadosCadastroCliente cadastroCliente) {
+        Optional<Cliente> obj = repository.findByCpf(cadastroCliente.cpf());
+        obj = repository.findByEmail(cadastroCliente.email());
+        if(obj.isPresent()) {
+            throw new ValidacaoException("E-mail já cadastrado no sistema!");
+        }
     }
 
     private void sendEmailCliente(Cliente cliente) {
