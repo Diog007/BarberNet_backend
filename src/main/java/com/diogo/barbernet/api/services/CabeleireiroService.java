@@ -1,10 +1,12 @@
 package com.diogo.barbernet.api.services;
 
+import com.diogo.barbernet.api.controller.EmailController;
 import com.diogo.barbernet.api.domain.ValidacaoException;
 import com.diogo.barbernet.api.domain.agendamento.Agendamento;
 import com.diogo.barbernet.api.domain.agendamento.DadosDetalhamentoAgendamento;
 import com.diogo.barbernet.api.domain.cabeleireiro.*;
 import com.diogo.barbernet.api.domain.cliente.Cliente;
+import com.diogo.barbernet.api.domain.email.EmailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,13 @@ public class CabeleireiroService {
     @Autowired
     private CabeleireiroRepository repository;
 
+    @Autowired
+    private EmailController emailController;
+
     public Cabeleireiro cadastrarCabeleireiro(DadosCadastroCabeleireiro dados) {
         validaPorCpfEEmail(dados);
         Cabeleireiro cabeleireiro = new Cabeleireiro(dados);
+        sendEmailCliente(cabeleireiro);
         return repository.save(cabeleireiro);
     }
 
@@ -64,5 +70,25 @@ public class CabeleireiroService {
     public Cabeleireiro findByCpf(String cpf) {
         var cabeleireiro = repository.findByCpf(cpf);
         return cabeleireiro.orElseThrow(() -> new ValidacaoException("CPF não encontrado!"));
+    }
+
+    private void sendEmailCliente(Cabeleireiro cabeleireiro) {
+        String assunto = "Bem-vindo(a) à Barbernet!";
+        String mensagem = String.format(
+                "Olá, %s,\n\n" +
+                        "Seja bem-vindo(a) à nossa equipe de colaboradores da barbearia! Estamos muito contentes em tê-lo(a) conosco.\n" +
+                        "Aqui estão alguns detalhes do seu cadastro:\n\n" +
+                        "Nome: %s\n" +
+                        "E-mail: %s\n" +
+                        "Telefone: %s\n" +
+                        "CPF: %s\n\n" +
+                        "Se precisar de qualquer coisa, não hesite em nos contatar.\n\n" +
+                        "Atenciosamente,\n" +
+                        "Equipe Barbernet",
+                cabeleireiro.getNome(), cabeleireiro.getNome(), cabeleireiro.getEmail(), cabeleireiro.getTelefone(), cabeleireiro.getCpf()
+        );
+
+        EmailDTO email = new EmailDTO("barbernet.api@gmail.com", cabeleireiro.getEmail(), assunto, mensagem);
+        this.emailController.sendingEmail(email);
     }
 }
