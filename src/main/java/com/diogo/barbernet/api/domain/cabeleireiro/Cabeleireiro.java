@@ -46,11 +46,13 @@ public class Cabeleireiro {
         this.endereco = new Endereco(dados.endereco());
     }
 
-    public Cabeleireiro(Long id, String nome, String telefone, String email, String cpf) {
+    public Cabeleireiro(Long id, String nome, String telefone, String email, String cpf, Endereco endereco) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
         this.cpf = cpf;
+        this.endereco = endereco;
     }
+
 }

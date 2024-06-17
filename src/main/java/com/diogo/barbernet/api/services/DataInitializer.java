@@ -8,6 +8,8 @@ import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
 import com.diogo.barbernet.api.domain.cabeleireiro.CabeleireiroRepository;
 import com.diogo.barbernet.api.domain.cliente.Cliente;
 import com.diogo.barbernet.api.domain.cliente.ClienteRepository;
+import com.diogo.barbernet.api.domain.endereco.DadosEndereco;
+import com.diogo.barbernet.api.domain.endereco.Endereco;
 import com.diogo.barbernet.api.domain.ponto.Ponto;
 import com.diogo.barbernet.api.domain.ponto.PontoRepository;
 import com.diogo.barbernet.api.domain.usuario.Usuario;
@@ -65,11 +67,20 @@ public class DataInitializer implements CommandLineRunner {
             }
         }
 
+        DadosEndereco endMed1 = new DadosEndereco("Avenida Paulista", "Bela Vista", "01311300", "São Paulo", "SP",  "15");
+        Endereco enderecoMed1 = new Endereco(endMed1);
+        DadosEndereco endMed2 = new DadosEndereco("Rua Augusta", "Consolação", "01304900", "São Paulo", "SP",  "545");
+        Endereco enderecoMed2 = new Endereco(endMed2);
+        DadosEndereco endMed3 = new DadosEndereco("Rua Oscar Freire", "Jardins", "01426000", "São Paulo", "SP",  "85");
+        Endereco enderecoMed3 = new Endereco(endMed3);
+        DadosEndereco endMed4 = new DadosEndereco("Avenida Brigadeiro Faria Lima", "Itaim Bibi", "01452000", "São Paulo", "SP",  "17");
+        Endereco enderecoMed4 = new Endereco(endMed4);
+
         List<Cabeleireiro> cabeleireiros = List.of(
-                new Cabeleireiro(1L, "Robert do Santos", "11-92964-2158", "robert@gmail.com", "74984302070"),
-                new Cabeleireiro(2L, "Renato da Silva", "11-91964-6152", "renato@gmail.com", "12041245077"),
-                new Cabeleireiro(3L, "Omar Rodrigues", "11-95954-5896", "omar@gmail.com", "40913283002"),
-                new Cabeleireiro(4L, "Fabiano Nascimento", "11-91514-2541", "fabiano@gmail.com", "00814078079")
+                new Cabeleireiro(1L, "Robert do Santos", "11-92964-2158", "robert@gmail.com", "74984302070", enderecoMed1),
+                new Cabeleireiro(2L, "Renato da Silva", "11-91964-6152", "renato@gmail.com", "12041245077", enderecoMed2),
+                new Cabeleireiro(3L, "Omar Rodrigues", "11-95954-5896", "omar@gmail.com", "40913283002", enderecoMed3),
+                new Cabeleireiro(4L, "Fabiano Nascimento", "11-91514-2541", "fabiano@gmail.com", "00814078079", enderecoMed4)
 
         );
         for (Cabeleireiro cabeleireiro : cabeleireiros) {
