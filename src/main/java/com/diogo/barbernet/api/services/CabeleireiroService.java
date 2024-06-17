@@ -81,14 +81,25 @@ public class CabeleireiroService {
                         "Nome: %s\n" +
                         "E-mail: %s\n" +
                         "Telefone: %s\n" +
-                        "CPF: %s\n\n" +
+                        "CPF: %s\n" +
+                        "Endereço:\n" +
+                        "Logradouro: %s\n" +
+                        "Bairro: %s\n" +
+                        "CEP: %s\n" +
+                        "Cidade: %s\n" +
+                        "UF: %s\n" +
+                        "Número: %s\n\n" +
                         "Se precisar de qualquer coisa, não hesite em nos contatar.\n\n" +
                         "Atenciosamente,\n" +
                         "Equipe Barbernet",
-                cabeleireiro.getNome(), cabeleireiro.getNome(), cabeleireiro.getEmail(), cabeleireiro.getTelefone(), cabeleireiro.getCpf()
+                cabeleireiro.getNome(), cabeleireiro.getNome(), cabeleireiro.getEmail(), cabeleireiro.getTelefone(), cabeleireiro.getCpf(),
+                cabeleireiro.getEndereco().getLogradouro(), cabeleireiro.getEndereco().getBairro(), cabeleireiro.getEndereco().getCep(),
+                cabeleireiro.getEndereco().getCidade(), cabeleireiro.getEndereco().getUf(),
+                cabeleireiro.getEndereco().getNumero()
         );
 
         EmailDTO email = new EmailDTO("barbernet.api@gmail.com", cabeleireiro.getEmail(), assunto, mensagem);
         this.emailController.sendingEmail(email);
     }
+
 }

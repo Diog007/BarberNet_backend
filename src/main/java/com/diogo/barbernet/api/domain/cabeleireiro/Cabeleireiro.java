@@ -1,6 +1,7 @@
 package com.diogo.barbernet.api.domain.cabeleireiro;
 
 import com.diogo.barbernet.api.domain.agendamento.Agendamento;
+import com.diogo.barbernet.api.domain.endereco.Endereco;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -34,11 +35,15 @@ public class Cabeleireiro {
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate admissao = LocalDate.now();
 
+    @Embedded
+    private Endereco endereco;
+
     public Cabeleireiro(DadosCadastroCabeleireiro dados) {
         this.nome = dados.nome();
         this.telefone = dados.telefone();
         this.email = dados.email();
         this.cpf = dados.cpf();
+        this.endereco = new Endereco(dados.endereco());
     }
 
     public Cabeleireiro(Long id, String nome, String telefone, String email, String cpf) {
