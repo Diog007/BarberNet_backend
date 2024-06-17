@@ -1,12 +1,9 @@
 package com.diogo.barbernet.api.domain.agendamento;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record DadosAgendamentoCorte(
@@ -15,10 +12,11 @@ public record DadosAgendamentoCorte(
         Long cliente,
         String nomeCabeleireiro,
         String nomeCliente,
+        @Future(message = "A data deve estar no futuro")
         LocalDateTime data,
+        @Positive(message = "O preço estimado deve ser positivo")
         BigDecimal precoEstimado,
         StatusAgendamento statusAgendamento,
         MetodoPagamento metodoPagamento,
-        String observacao) {
-
-}
+        String observacao
+) {}

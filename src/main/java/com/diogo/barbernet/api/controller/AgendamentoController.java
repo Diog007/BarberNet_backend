@@ -56,7 +56,7 @@ public class AgendamentoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateAgendamento(@PathVariable Long id, @RequestBody DadosAtualizarCorte dados) {
+    public ResponseEntity updateAgendamento(@PathVariable Long id, @Valid @RequestBody DadosAtualizarCorte dados) {
         this.agendamentoService.update(id, dados);
         return ResponseEntity.ok().build();
     }
