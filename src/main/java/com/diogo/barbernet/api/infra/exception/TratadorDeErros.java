@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.naming.AuthenticationException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @RestControllerAdvice
 public class TratadorDeErros {
@@ -25,9 +23,12 @@ public class TratadorDeErros {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity tratarError400(MethodArgumentNotValidException ex) {
-        List<FieldError> erros = ex.getFieldErrors();
-        return ResponseEntity.badRequest().body(erros.stream().map(DadosErroValidacao::new).toList());
+    public ResponseEntity handleValidationExceptions(MethodArgumentNotValidException ex) {
+        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+                var msg = new ValidacaoException(error.getDefaultMessage());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(msg);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Campo inválido!");
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)

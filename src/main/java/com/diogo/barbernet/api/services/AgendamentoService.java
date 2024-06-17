@@ -1,5 +1,6 @@
 package com.diogo.barbernet.api.services;
 
+import com.diogo.barbernet.api.controller.EmailController;
 import com.diogo.barbernet.api.domain.ValidacaoException;
 import com.diogo.barbernet.api.domain.agendamento.*;
 import com.diogo.barbernet.api.domain.agendamento.validacoes.ValidadorAgendamentoDeCorte;
@@ -7,12 +8,14 @@ import com.diogo.barbernet.api.domain.cabeleireiro.Cabeleireiro;
 import com.diogo.barbernet.api.domain.cabeleireiro.CabeleireiroRepository;
 import com.diogo.barbernet.api.domain.cliente.Cliente;
 import com.diogo.barbernet.api.domain.cliente.ClienteRepository;
+import com.diogo.barbernet.api.domain.email.EmailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,6 +44,9 @@ public class AgendamentoService {
     @Autowired
     private  CabeleireiroService cabeleireiroService;
 
+    @Autowired
+    private EmailController emailController;
+
     public List<Agendamento> listarAgendamento() {
         return repository.findAll();
     }
@@ -59,6 +65,8 @@ public class AgendamentoService {
         agendamento.setMetodoPagamento(dados.metodoPagamento());
         agendamento.setObservacao(dados.observacao());
         agendamentoRepository.save(agendamento);
+
+        sendEmailAgendamento(cliente, agendamento);
 
         return new DadosDetalhamentoAgendamento(agendamento);
     }
@@ -108,5 +116,32 @@ public class AgendamentoService {
         return agendamentos.stream()
                 .map(DadosDetalhamentoAgendamento::new)
                 .collect(Collectors.toList());
+    }
+
+    private void sendEmailAgendamento(Cliente cliente, Agendamento agendamento) {
+        String assunto = "Confirmação de Agendamento";
+        String mensagem = String.format(
+                "Olá, %s,\n\n" +
+                        "Seu agendamento foi confirmado com sucesso! Aqui estão os detalhes:\n\n" +
+                        "Nome do Cliente: %s\n" +
+                        "Nome do Cabeleireiro: %s\n" +
+                        "Data e Hora: %s\n" +
+                        "Preço Estimado: R$ %.2f\n" +
+                        "Método de Pagamento: %s\n" +
+                        "Observação: %s\n\n" +
+                        "Se precisar de qualquer coisa, não hesite em nos contatar.\n\n" +
+                        "Atenciosamente,\n" +
+                        "Equipe Barbernet",
+                cliente.getNome(),
+                cliente.getNome(),
+                agendamento.getCabeleireiro().getNome(),
+                agendamento.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
+                agendamento.getPrecoEstimado(),
+                agendamento.getMetodoPagamento().toString(),
+                agendamento.getObservacao()
+        );
+
+        EmailDTO email = new EmailDTO("barbernet.api@gmail.com", cliente.getEmail(), assunto, mensagem);
+        emailController.sendingEmail(email);
     }
 }
