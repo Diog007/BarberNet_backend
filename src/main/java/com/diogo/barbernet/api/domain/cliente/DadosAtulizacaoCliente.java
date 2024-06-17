@@ -1,6 +1,21 @@
 package com.diogo.barbernet.api.domain.cliente;
 
-public record DadosAtulizacaoCliente(Long id, String nome, String telefone, String email, String cpf) {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CPF;
+
+public record DadosAtulizacaoCliente(Long id,
+                                     @NotBlank(message = "O nome não pode estar em branco")
+                                     String nome,
+                                     @NotBlank
+                                     String telefone,
+                                     @NotBlank
+                                     @Email(message = "Formato de email inálido!")
+                                     String email,
+                                     @NotBlank
+                                     @CPF(message = "CPF inválido")
+                                     String cpf
+) {
 
 
     public DadosAtulizacaoCliente(Cliente cliente) {
