@@ -1,4 +1,11 @@
 package com.diogo.barbernet.api.domain.ponto;
 
-public record DadosDeEntrada(String cpf) {
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CPF;
+
+public record DadosDeEntrada(
+        @NotBlank
+        @CPF
+        String cpf
+) {
 }
