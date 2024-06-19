@@ -53,17 +53,11 @@ public class AgendamentoService {
 
     public DadosDetalhamentoAgendamento agendar(DadosAgendamentoCorte dados) {
         validadores.forEach(v -> v.validar(dados));
-        var cliente = clienteRepository.getReferenceById(dados.cliente());
-        var cabeleireiro = cabeleireiroRepository.getReferenceById(dados.cabeleireiro());
+        Cliente cliente = clienteRepository.getReferenceById(dados.cliente());
+        Cabeleireiro cabeleireiro = cabeleireiroRepository.getReferenceById(dados.cabeleireiro());
 
-        var agendamento = new Agendamento();
-        agendamento.setCliente(cliente);
-        agendamento.setCabeleireiro(cabeleireiro);
-        agendamento.setDataHora(dados.data());
-        agendamento.setPrecoEstimado(dados.precoEstimado());
-        agendamento.setStatus(dados.statusAgendamento());
-        agendamento.setMetodoPagamento(dados.metodoPagamento());
-        agendamento.setObservacao(dados.observacao());
+        Agendamento agendamento = new Agendamento(dados, cliente, cabeleireiro);
+
         agendamentoRepository.save(agendamento);
 
         sendEmailAgendamento(cliente, agendamento);

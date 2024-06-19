@@ -44,4 +44,14 @@ public class Agendamento {
     private MetodoPagamento metodoPagamento;
 
     private String observacao;
+
+    public Agendamento(DadosAgendamentoCorte dados, Cliente cliente, Cabeleireiro cabeleireiro) {
+        this.cliente = cliente;
+        this.cabeleireiro = cabeleireiro;
+        this.dataHora = dados.data();
+        this.precoEstimado = dados.precoEstimado();
+        this.status = dados.statusAgendamento();
+        this.metodoPagamento = dados.metodoPagamento();
+        this.observacao = dados.observacao();
+    }
 }
