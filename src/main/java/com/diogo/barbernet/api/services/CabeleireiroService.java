@@ -34,13 +34,9 @@ public class CabeleireiroService {
         return repository.findAll();
     }
 
-    public Cabeleireiro atualizarCabeleireiro(Long id, DadosAtulizacaoCabeleireiro dados) {
+    public void atualizarCabeleireiro(Long id, DadosAtulizacaoCabeleireiro dados) {
         Cabeleireiro cabeleireiro = findById(id);
-        cabeleireiro.setNome(dados.nome());
-        cabeleireiro.setTelefone(dados.telefone());
-        cabeleireiro.setEmail(dados.email());
-        cabeleireiro.setCpf(dados.cpf());
-        return repository.save(cabeleireiro);
+        cabeleireiro.atualizar(dados);
     }
 
     public void deletar(Long id) {

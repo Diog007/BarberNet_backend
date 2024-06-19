@@ -46,6 +46,14 @@ public class Cabeleireiro {
         this.endereco = new Endereco(dados.endereco());
     }
 
+    public void atualizar(DadosAtulizacaoCabeleireiro dados) {
+        this.nome = dados.nome();
+        this.telefone = dados.telefone();
+        this.email = dados.email();
+        this.cpf = dados.cpf();
+        this.endereco = new Endereco(dados.endereco());
+    }
+
     public Cabeleireiro(Long id, String nome, String telefone, String email, String cpf, Endereco endereco) {
         this.id = id;
         this.nome = nome;

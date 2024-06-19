@@ -37,9 +37,9 @@ public class CabeleireiroController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DadosAtulizacaoCabeleireiro> atualizarCabeleireiro (@PathVariable Long id, @RequestBody @Valid DadosAtulizacaoCabeleireiro dados){
-        Cabeleireiro cabeleireiro = service.atualizarCabeleireiro(id, dados);
-        return ResponseEntity.ok().body(new DadosAtulizacaoCabeleireiro(cabeleireiro));
+    public ResponseEntity atualizarCabeleireiro (@PathVariable Long id, @RequestBody @Valid DadosAtulizacaoCabeleireiro dados){
+        this.service.atualizarCabeleireiro(id, dados);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
