@@ -54,4 +54,14 @@ public class Agendamento {
         this.metodoPagamento = dados.metodoPagamento();
         this.observacao = dados.observacao();
     }
+
+    public void atualizar(DadosAtualizarCorte dados, Cliente cliente, Cabeleireiro cabeleireiro) {
+        this.cliente = cliente;
+        this.cabeleireiro = cabeleireiro;
+        this.dataHora = dados.data();
+        this.precoEstimado = dados.precoEstimado();
+        this.status = dados.statusAgendamento();
+        this.metodoPagamento = dados.metodoPagamento();
+        this.observacao = dados.observacao();
+    }
 }

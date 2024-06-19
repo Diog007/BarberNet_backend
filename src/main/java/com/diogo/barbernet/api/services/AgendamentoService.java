@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 public class AgendamentoService {
 
     @Autowired
-    private AgendamentoRepository repository;
+    private AgendamentoRepository agendamentoRepository;
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -36,9 +36,6 @@ public class AgendamentoService {
     private List<ValidadorAgendamentoDeCorte> validadores;
 
     @Autowired
-    private AgendamentoRepository agendamentoRepository;
-
-    @Autowired
     private ClienteService clienteService;
 
     @Autowired
@@ -48,20 +45,18 @@ public class AgendamentoService {
     private EmailController emailController;
 
     public List<Agendamento> listarAgendamento() {
-        return repository.findAll();
+        return agendamentoRepository.findAll();
     }
 
     public DadosDetalhamentoAgendamento agendar(DadosAgendamentoCorte dados) {
         validadores.forEach(v -> v.validar(dados));
         Cliente cliente = clienteRepository.getReferenceById(dados.cliente());
         Cabeleireiro cabeleireiro = cabeleireiroRepository.getReferenceById(dados.cabeleireiro());
-
         Agendamento agendamento = new Agendamento(dados, cliente, cabeleireiro);
 
         agendamentoRepository.save(agendamento);
 
         sendEmailAgendamento(cliente, agendamento);
-
         return new DadosDetalhamentoAgendamento(agendamento);
     }
 
@@ -71,42 +66,34 @@ public class AgendamentoService {
     }
 
     public Agendamento findById(Long id) {
-        Optional<Agendamento> agendamento = repository.findById(id);
+        Optional<Agendamento> agendamento = agendamentoRepository.findById(id);
         return agendamento.orElseThrow(() -> new ValidacaoException("Objeto não encontrado! ID:" + id));
     }
 
     public void update(Long id, DadosAtualizarCorte dados) {
+        Cabeleireiro cabeleireiro = cabeleireiroService.findById(Long.valueOf(dados.cabeleireiro()));
+        Cliente cliente = clienteService.findById(Long.valueOf(dados.cliente()));
         Agendamento agendamentoUpdate = findById(id);
-        var cabeleireiro = cabeleireiroService.findById(Long.valueOf(dados.cabeleireiro()));
-        var cliente = clienteService.findById(Long.valueOf(dados.cliente()));
 
-        agendamentoUpdate.setCabeleireiro(cabeleireiro);
-        agendamentoUpdate.setCliente(cliente);
-        agendamentoUpdate.setStatus(dados.statusAgendamento());
-        agendamentoUpdate.setDataHora(dados.data());
-        agendamentoUpdate.setDataCriacao(LocalDate.now());
-        agendamentoUpdate.setPrecoEstimado(dados.precoEstimado());
-        agendamentoUpdate.setMetodoPagamento(dados.metodoPagamento());
-        agendamentoUpdate.setObservacao(dados.observacao());
-
-        this.repository.save(agendamentoUpdate);
+        agendamentoUpdate.atualizar(dados, cliente, cabeleireiro);
+        this.agendamentoRepository.save(agendamentoUpdate);
     }
 
     public void atualizarStatus(Long id, DadoAtualizarStatus atualizarStatus) {
         Agendamento agend = findById(id);
         agend.setStatus(atualizarStatus.status());
-        repository.save(agend);
+        agendamentoRepository.save(agend);
     }
 
     public List<DadosDetalhamentoAgendamento> findAllByAgendamentosPorCabeId(Long id) {
-        var agendamentos = repository.findAllByCabeleireiroId(id);
+        var agendamentos = agendamentoRepository.findAllByCabeleireiroId(id);
         return agendamentos.stream()
                 .map(DadosDetalhamentoAgendamento::new)
                 .collect(Collectors.toList());
     }
 
     public List<DadosDetalhamentoAgendamento> findAllByAgendamentosPorCLiId(Long id) {
-        var agendamentos = repository.findAllByClienteId(id);
+        var agendamentos = agendamentoRepository.findAllByClienteId(id);
         return agendamentos.stream()
                 .map(DadosDetalhamentoAgendamento::new)
                 .collect(Collectors.toList());
