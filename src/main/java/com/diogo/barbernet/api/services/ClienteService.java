@@ -40,11 +40,7 @@ public class ClienteService {
 
     public Cliente atualizarCliente(Long id, DadosAtulizacaoCliente dados) {
         Cliente cliente = findById(id);
-        cliente.setNome(dados.nome());
-        cliente.setTelefone(dados.telefone());
-        cliente.setEmail(dados.email());
-        cliente.setCpf(dados.cpf());
-
+        cliente.atualizar(dados);
         return repository.save(cliente);
     }
 

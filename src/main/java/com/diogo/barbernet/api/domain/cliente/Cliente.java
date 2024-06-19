@@ -1,6 +1,8 @@
 package com.diogo.barbernet.api.domain.cliente;
 
 import com.diogo.barbernet.api.domain.agendamento.Agendamento;
+import com.diogo.barbernet.api.domain.cabeleireiro.DadosAtulizacaoCabeleireiro;
+import com.diogo.barbernet.api.domain.endereco.Endereco;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,6 +31,13 @@ public class Cliente {
     private List<Agendamento> agendamentos = new ArrayList<>();
 
     public Cliente(DadosCadastroCliente dados) {
+        this.nome = dados.nome();
+        this.telefone = dados.telefone();
+        this.email = dados.email();
+        this.cpf = dados.cpf();
+    }
+
+    public void atualizar(DadosAtulizacaoCliente dados) {
         this.nome = dados.nome();
         this.telefone = dados.telefone();
         this.email = dados.email();
