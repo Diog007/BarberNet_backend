@@ -90,10 +90,10 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         List<Agendamento> agendamentos = List.of(
-                new Agendamento(null, clientes.get(0), cabeleireiros.get(0), LocalDate.now(), LocalDateTime.parse("2024-06-24T10:15:30"), new BigDecimal("25.80"), StatusAgendamento.EM_ABERTO, MetodoPagamento.CARTAO_CREDITO, "Corte Social"),
-                new Agendamento(null, clientes.get(1), cabeleireiros.get(1), LocalDate.now(), LocalDateTime.parse("2024-06-24T12:30:00"), new BigDecimal("50.20"), StatusAgendamento.CONCLUIDO, MetodoPagamento.CARTAO_DEBITO, "Corte moicano"),
-                new Agendamento(null, clientes.get(2), cabeleireiros.get(2), LocalDate.now(), LocalDateTime.parse("2024-06-24T14:15:30"), new BigDecimal("60.60"), StatusAgendamento.CANCELADO, MetodoPagamento.PIX, "corte Degradê "),
-                new Agendamento(null, clientes.get(3), cabeleireiros.get(3), LocalDate.now(), LocalDateTime.parse("2024-06-24T16:00:00"), new BigDecimal("70.70"), StatusAgendamento.EM_ABERTO, MetodoPagamento.DINHEIRO, "Corte repicado")
+                new Agendamento(null, clientes.get(0), cabeleireiros.get(0), LocalDate.now(), LocalDateTime.parse("2024-06-24T10:15:30"), new BigDecimal("25"), StatusAgendamento.EM_ABERTO, MetodoPagamento.CARTAO_CREDITO, "Corte Social"),
+                new Agendamento(null, clientes.get(1), cabeleireiros.get(1), LocalDate.now(), LocalDateTime.parse("2024-06-24T12:30:00"), new BigDecimal("50"), StatusAgendamento.CONCLUIDO, MetodoPagamento.CARTAO_DEBITO, "Corte moicano"),
+                new Agendamento(null, clientes.get(2), cabeleireiros.get(2), LocalDate.now(), LocalDateTime.parse("2024-06-24T14:15:30"), new BigDecimal("60"), StatusAgendamento.CANCELADO, MetodoPagamento.PIX, "corte Degradê "),
+                new Agendamento(null, clientes.get(3), cabeleireiros.get(3), LocalDate.now(), LocalDateTime.parse("2024-06-24T16:00:00"), new BigDecimal("70"), StatusAgendamento.EM_ABERTO, MetodoPagamento.DINHEIRO, "Corte repicado")
 
         );
         for (Agendamento agendamento : agendamentos) {
