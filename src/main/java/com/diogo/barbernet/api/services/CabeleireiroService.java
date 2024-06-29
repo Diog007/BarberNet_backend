@@ -37,6 +37,7 @@ public class CabeleireiroService {
     public void atualizarCabeleireiro(Long id, DadosAtulizacaoCabeleireiro dados) {
         Cabeleireiro cabeleireiro = findById(id);
         cabeleireiro.atualizar(dados);
+        repository.save(cabeleireiro);
     }
 
     public void deletar(Long id) {
