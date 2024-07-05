@@ -5,6 +5,11 @@
 A Barbernet é uma plataforma de API voltada para barbearias, oferecendo funcionalidades para gerenciar eficientemente o negócio. Com ela, é possível cadastrar cabeleireiros e clientes, além de agendar cortes de cabelo de forma simples. A plataforma permite não apenas o agendamento, mas também a listagem de cabeleireiros e clientes, facilitando o acompanhamento e a organização das dos dados.
 
 
+## 🎥  Assista ao vídeo do projeto  
+### Vídeo detalhado do projeto onde cada recurso é explicado e demonstrado em ação! Veja abaixo:
+
+
+https://github.com/Diog007/BarberNet-Front-End/assets/151067241/c2632beb-bb0c-4091-86d1-144159a70a48
 
 
 ## 🚀 Deploy 
